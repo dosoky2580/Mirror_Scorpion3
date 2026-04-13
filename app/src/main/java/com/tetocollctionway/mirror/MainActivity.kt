@@ -18,6 +18,7 @@ import com.tetocollctionway.mirror.ui.theme.ScorpionGold
 import com.tetocollctionway.mirror.ui.cards.TranslatorCard
 import com.tetocollctionway.mirror.ui.cards.ConversationCard
 import com.tetocollctionway.mirror.ui.cards.DocumentLensCard
+import com.tetocollctionway.mirror.ui.cards.SpiritualInspirationCard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                     item { TranslatorCard() }
                     item { ConversationCard() }
                     item { DocumentLensCard() }
+                    item { SpiritualInspirationCard() }
                     
                     item { Spacer(modifier = Modifier.height(50.dp)) }
                 }
