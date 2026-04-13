@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.tetocollctionway.mirror.ui.theme.MirrorScorpionTheme
 import com.tetocollctionway.mirror.ui.theme.ScorpionGold
 import com.tetocollctionway.mirror.ui.cards.TranslatorCard
+import com.tetocollctionway.mirror.ui.cards.ConversationCard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,25 +30,19 @@ class MainActivity : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     item {
-                        // العقرب وانعكاسه (بصورة مذهلة)
                         Column(
                             modifier = Modifier.padding(top = 40.dp, bottom = 20.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text("🦂", fontSize = 80.sp) // سيتم استبدالها بصورة حقيقية لاحقاً
-                            Text(
-                                "🦂", 
-                                fontSize = 80.sp,
-                                modifier = Modifier
-                                    .graphicsLayer(scaleY = -0.6f, alpha = 0.3f) // الانعكاس
-                            )
+                            Text("🦂", fontSize = 80.sp)
+                            Text("🦂", fontSize = 80.sp, modifier = Modifier.graphicsLayer(scaleY = -0.6f, alpha = 0.3f))
                         }
                     }
 
                     item { TranslatorCard() }
+                    item { ConversationCard() }
                     
-                    // بقية الكروت الـ 5 ستضاف هنا تباعاً
-                    item { Text("بقية الكروت قيد الإنشاء...", color = ScorpionGold, modifier = Modifier.padding(20.dp)) }
+                    item { Spacer(modifier = Modifier.height(50.dp)) }
                 }
             }
         }
