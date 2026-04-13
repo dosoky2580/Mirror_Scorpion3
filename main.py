@@ -1,10 +1,9 @@
-from kivymd.app import MDApp
-from kivymd.uix.screen import MDScreen
-from kivymd.uix.label import MDLabel
+from kivy.app import App
+from kivy.uix.label import Label
 
-class MirrorApp(MDApp):
+class MirrorApp(App):
     def build(self):
-        return MDLabel(text="Mirror Pro - Welcome Tamer", halign="center")
+        return Label(text="Hello Tamer - Mirror is Alive")
 
 if __name__ == "__main__":
     MirrorApp().run()
