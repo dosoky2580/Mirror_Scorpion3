@@ -19,7 +19,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '8.5' # الرقم السحري المستقر
+          gradle-version: '8.7' # النسخة المطلوبة وأعلى قليلاً للاستقرار
 
       - name: Build with Gradle
         run: gradle assembleDebug
