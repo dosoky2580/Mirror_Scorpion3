@@ -16,11 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # الضربة القاضية: توليد المحرك داخل السيرفر مباشرة
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: 8.2.2
+          gradle-version: '8.4' # نسخة مستقرة وموجودة
 
       - name: Build with Gradle
         run: gradle assembleDebug
