@@ -20,6 +20,7 @@ import com.tetocollctionway.mirror.ui.cards.ConversationCard
 import com.tetocollctionway.mirror.ui.cards.DocumentLensCard
 import com.tetocollctionway.mirror.ui.cards.SpiritualInspirationCard
 import com.tetocollctionway.mirror.ui.cards.GamesHubCard
+import com.tetocollctionway.mirror.ui.cards.SettingsCard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
                     item { DocumentLensCard() }
                     item { SpiritualInspirationCard() }
                     item { GamesHubCard() }
+                    item { SettingsCard(isPremium = false) }
                     
                     item { Spacer(modifier = Modifier.height(50.dp)) }
                 }
