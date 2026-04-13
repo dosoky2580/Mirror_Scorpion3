@@ -9,10 +9,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
-      - run: chmod +x gradlew
-      - run: ./gradlew assembleDebug
-      - uses: actions/upload-artifact@v4
+      
+      # الخطوة السحرية: إنشاء ملفات التشغيل لو مش موجودة
+      - name: Force Create Gradle Wrapper
+        run: gradle wrapper
+        
+      - name: Build APK
+        run: ./gradlew assembleDebug
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: MirrorAPK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/*.apk
