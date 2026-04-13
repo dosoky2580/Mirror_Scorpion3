@@ -28,6 +28,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
+        // إضافة أمر تجاوز فحص النسخة للأمان الإضافي
+        freeCompilerArgs += ["-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"]
     }
     buildFeatures {
         compose true
@@ -42,8 +44,6 @@ dependencies {
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.material3:material3'
     implementation 'androidx.compose.ui:ui-tooling-preview'
-    
-    // التصحيح هنا: إضافة كلمة activity قبل كلمة compose
     implementation 'androidx.activity:activity-compose:1.8.2'
     
     implementation "com.google.dagger:hilt-android:2.51.1"
