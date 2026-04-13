@@ -1,4 +1,4 @@
-name: Scorpion Native Engine Build
+name: Mirror Scorpion Release
 
 on:
   push:
@@ -22,16 +22,22 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
+    - name: Build Debug APK
       run: ./gradlew assembleDebug
 
-    - name: Create Release
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mirror-App
+        path: app/build/outputs/apk/debug/*.apk
+
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       if: success()
       with:
         files: app/build/outputs/apk/debug/*.apk
         tag_name: v1.0.${{ github.run_number }}
-        name: Mirror-Scorpion-v1.0.${{ github.run_number }}
-        body: "تطبيق المرآة جاهز للتحميل يا تامر"
+        name: Mirror Release v1.0.${{ github.run_number }}
+        body: "تطبيق المرآة (مشروع العمر) جاهز يا تامر. فك الضغط وثبت الـ APK."
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
