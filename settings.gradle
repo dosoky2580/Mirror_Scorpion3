@@ -1,0 +1,2 @@
+rootProject.name = "Mirror_Scorpion3"
+include ':app'
