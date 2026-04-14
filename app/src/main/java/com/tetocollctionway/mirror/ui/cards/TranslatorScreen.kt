@@ -14,60 +14,58 @@ import androidx.navigation.NavController
 @Composable
 fun TranslatorScreen(navController: NavController) {
     var inputText by remember { mutableStateOf("") }
-    var translatedText by remember { mutableStateOf("الترجمة ستظهر هنا...") }
+    var translatedText by remember { mutableStateOf("") }
+    var isRecording by remember { mutableStateOf(false) }
+    var isSpeaking by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize().background(Color.Black).padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { inputText = it },
-            modifier = Modifier.fillMaxWidth().weight(1f),
-            label = { Text("اكتب النص هنا...", color = Color.White) },
-            textStyle = androidx.compose.ui.text.TextStyle(color = Color.White),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color(0xFFFFD700),
-                unfocusedBorderColor = Color.Gray,
-                cursorColor = Color(0xFFFFD700)
+        // المربع العلوي مع المايك جواه
+        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            OutlinedTextField(
+                value = inputText,
+                onValueChange = { inputText = it },
+                modifier = Modifier.fillMaxSize(),
+                label = { Text("اكتب أو تحدث...", color = Color.White) },
+                textStyle = androidx.compose.ui.text.TextStyle(color = Color.White),
+                colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFFFFD700))
             )
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = { /* تفعيل المايك قريباً */ }) {
-                Text("🎤", fontSize = 24.sp)
-            }
-            
-            Button(
-                onClick = { translatedText = "جاري الترجمة..." },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD700))
+            IconButton(
+                onClick = { isRecording = !isRecording },
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
             ) {
-                Text("English ↔ Arabic", color = Color.Black)
-            }
-
-            IconButton(onClick = { /* تفعيل السماعة قريباً */ }) {
-                Text("🔊", fontSize = 24.sp)
+                Text(if (isRecording) "🔴" else "🎤", fontSize = 24.sp)
             }
         }
 
-        OutlinedTextField(
-            value = translatedText,
-            onValueChange = {},
-            modifier = Modifier.fillMaxWidth().weight(1f),
-            label = { Text("الترجمة", color = Color(0xFFFFD700)) },
-            readOnly = true,
-            textStyle = androidx.compose.ui.text.TextStyle(color = Color(0xFFFFD700)),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color(0xFFFFD700),
-                unfocusedBorderColor = Color(0xFFFFD700)
+        // زرار اللغة والترجمة
+        Button(
+            onClick = { /* كود الترجمة الفوري */ },
+            modifier = Modifier.padding(vertical = 10.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD700))
+        ) {
+            Text("English ↔ Arabic", color = Color.Black)
+        }
+
+        // المربع السفلي مع السماعة جواه
+        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            OutlinedTextField(
+                value = translatedText,
+                onValueChange = {},
+                modifier = Modifier.fillMaxSize(),
+                label = { Text("الترجمة", color = Color(0xFFFFD700)) },
+                readOnly = true,
+                textStyle = androidx.compose.ui.text.TextStyle(color = Color(0xFFFFD700)),
+                colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color(0xFFFFD700))
             )
-        )
+            IconButton(
+                onClick = { isSpeaking = !isSpeaking },
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
+            ) {
+                Text(if (isSpeaking) "🛑" else "🔊", fontSize = 24.sp)
+            }
+        }
     }
 }

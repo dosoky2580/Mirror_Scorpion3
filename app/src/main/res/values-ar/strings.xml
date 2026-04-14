@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Mirror Pro</string>
+    <string name="card_translator">المترجم</string>
+    <string name="card_conversation">الحوار المترجم</string>
+    <string name="card_lens">عدسة المستندات</string>
+    <string name="card_spiritual">إلهام روحي</string>
+    <string name="card_games">الألعاب</string>
+    <string name="card_settings">الإعدادات</string>
+</resources>
