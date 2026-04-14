@@ -8,11 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
 fun TranslatorScreen(navController: NavController) {
-    // متغيرات لحفظ النص المكتوب والمترجم
     var inputText by remember { mutableStateOf("") }
     var translatedText by remember { mutableStateOf("الترجمة ستظهر هنا...") }
 
@@ -23,7 +23,6 @@ fun TranslatorScreen(navController: NavController) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // 1. مربع الكتابة (العلوي) - الآن يقبل الكتابة
         OutlinedTextField(
             value = inputText,
             onValueChange = { inputText = it },
@@ -37,7 +36,6 @@ fun TranslatorScreen(navController: NavController) {
             )
         )
 
-        // 2. سطر التحكم (اللغة، المايك، السماعة)
         Row(
             modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -48,10 +46,7 @@ fun TranslatorScreen(navController: NavController) {
             }
             
             Button(
-                onClick = { 
-                    // هنا هنحط كود الترجمة الفوري
-                    translatedText = "جاري الترجمة..." 
-                },
+                onClick = { translatedText = "جاري الترجمة..." },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD700))
             ) {
                 Text("English ↔ Arabic", color = Color.Black)
@@ -62,7 +57,6 @@ fun TranslatorScreen(navController: NavController) {
             }
         }
 
-        // 3. مربع النتيجة (السفلي)
         OutlinedTextField(
             value = translatedText,
             onValueChange = {},
