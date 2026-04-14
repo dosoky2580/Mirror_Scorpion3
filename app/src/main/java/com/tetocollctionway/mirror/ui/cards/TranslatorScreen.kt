@@ -15,6 +15,8 @@ import androidx.navigation.NavController
 fun TranslatorScreen(navController: NavController) {
     var inputText by remember { mutableStateOf("") }
     var translatedText by remember { mutableStateOf("") }
+    
+    // متغيرات الـ Logic
     var isRecording by remember { mutableStateOf(false) }
     var isSpeaking by remember { mutableStateOf(false) }
 
@@ -22,7 +24,7 @@ fun TranslatorScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize().background(Color.Black).padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // المربع العلوي مع المايك جواه
+        // المربع العلوي مع المايك
         Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
             OutlinedTextField(
                 value = inputText,
@@ -33,14 +35,18 @@ fun TranslatorScreen(navController: NavController) {
                 colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFFFFD700))
             )
             IconButton(
-                onClick = { isRecording = !isRecording },
+                onClick = { 
+                    isRecording = !isRecording
+                    if (isRecording) isSpeaking = false // طفي السماعة لو المايك اشتغل
+                },
                 modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
             ) {
-                Text(if (isRecording) "🔴" else "🎤", fontSize = 24.sp)
+                // تغيير الأيقونة واللون للتشغيل
+                Text(if (isRecording) "🔴" else "🎤", fontSize = 28.sp, color = if(isRecording) Color.Red else Color.White)
             }
         }
 
-        // زرار اللغة والترجمة
+        // زرار اللغة
         Button(
             onClick = { /* كود الترجمة الفوري */ },
             modifier = Modifier.padding(vertical = 10.dp),
@@ -49,7 +55,7 @@ fun TranslatorScreen(navController: NavController) {
             Text("English ↔ Arabic", color = Color.Black)
         }
 
-        // المربع السفلي مع السماعة جواه
+        // المربع السفلي مع السماعة
         Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
             OutlinedTextField(
                 value = translatedText,
@@ -61,10 +67,14 @@ fun TranslatorScreen(navController: NavController) {
                 colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Color(0xFFFFD700))
             )
             IconButton(
-                onClick = { isSpeaking = !isSpeaking },
+                onClick = { 
+                    isSpeaking = !isSpeaking
+                    if (isSpeaking) isRecording = false // طفي المايك لو السماعة اشتغلت
+                },
                 modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
             ) {
-                Text(if (isSpeaking) "🛑" else "🔊", fontSize = 24.sp)
+                // تغيير اللون للتشغيل
+                Text(if (isSpeaking) "🛑" else "🔊", fontSize = 28.sp, color = if(isSpeaking) Color(0xFFFFD700) else Color.White)
             }
         }
     }
