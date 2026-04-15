@@ -17,13 +17,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
-
+        # لغينا الكاش هنا عشان السيرفر عطلان
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      # أمر --no-build-cache بيجبره يبني من غير ما يسأل السيرفر عن ملفات قديمة
+      run: ./gradlew assembleDebug --no-build-cache
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
