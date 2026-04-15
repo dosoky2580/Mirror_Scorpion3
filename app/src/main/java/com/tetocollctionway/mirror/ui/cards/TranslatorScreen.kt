@@ -1,7 +1,6 @@
 package com.tetocollctionway.mirror.ui.cards
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -18,74 +17,60 @@ import androidx.navigation.NavController
 fun TranslatorScreen(navController: NavController) {
     var inputText by remember { mutableStateOf("") }
     var translatedText by remember { mutableStateOf("") }
-    
-    // إدارة حالة الأدوات (Logic)
-    var isMicActive by remember { mutableStateOf(false) }
-    var isSpeakerActive by remember { mutableStateOf(false) }
+    var isTranslated by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF1A1A2E)) // نفس روح الخلفية الجديدة
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize().background(Color(0xFF0F172A)).padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // حقل الإدخال
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { inputText = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .border(1.dp, Color(0xFF42A5F5), RoundedCornerShape(15.dp)),
-            label = { Text("اكتب أو تحدث للترجمة...", color = Color.Gray) },
-            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
-            trailingIcon = {
-                IconButton(onClick = { 
-                    isMicActive = !isMicActive
-                    if (isMicActive) isSpeakerActive = false // منع التداخل
-                }) {
-                    Text(
-                        text = if (isMicActive) "🔴" else "🎤", 
-                        fontSize = 24.sp,
-                        color = if (isMicActive) Color.Red else Color.White
-                    )
-                }
-            }
-        )
-
-        // زر التحويل المركزي
+        // زر اختيار اللغة (100 لغة) - منتصف علوي
         Button(
-            onClick = { /* تنفيذ الترجمة */ },
-            modifier = Modifier.padding(vertical = 20.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD700))
+            onClick = { /* تفعيل القائمة */ },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD700)),
+            modifier = Modifier.padding(bottom = 12.dp)
         ) {
             Text("English ↔ Arabic", color = Color.Black)
         }
 
-        // حقل النتيجة
-        OutlinedTextField(
-            value = translatedText,
-            onValueChange = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .border(1.dp, Color(0xFFFF7043), RoundedCornerShape(15.dp)),
-            label = { Text("الترجمة المستلمة", color = Color.Gray) },
-            readOnly = true,
-            textStyle = TextStyle(color = Color(0xFFFFD700), fontSize = 18.sp),
-            trailingIcon = {
-                IconButton(onClick = { 
-                    isSpeakerActive = !isSpeakerActive
-                    if (isSpeakerActive) isMicActive = false // منع التداخل
-                }) {
-                    Text(
-                        text = if (isSpeakerActive) "🛑" else "🔊", 
-                        fontSize = 24.sp,
-                        color = if (isSpeakerActive) Color.Green else Color.White
-                    )
-                }
+        // المحرر العلوي (الإدخال)
+        Box(modifier = Modifier.fillMaxWidth().weight(1f).background(Color.White.copy(alpha = 0.05f), RoundedCornerShape(15.dp))) {
+            OutlinedTextField(
+                value = inputText,
+                onValueChange = { 
+                    if (isTranslated) { inputText = it; translatedText = ""; isTranslated = false }
+                    else { inputText = it }
+                },
+                modifier = Modifier.fillMaxSize(),
+                placeholder = { Text("اكتب أو تحدث...", color = Color.Gray) },
+                textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+                colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent)
+            )
+            // مايك أسفل اليسار
+            IconButton(
+                onClick = { inputText = ""; translatedText = ""; isTranslated = false },
+                modifier = Modifier.align(Alignment.BottomStart).padding(8.dp)
+            ) {
+                Text("🎤", fontSize = 24.sp)
             }
-        )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // المحرر السفلي (الترجمة)
+        Box(modifier = Modifier.fillMaxWidth().weight(1f).background(Color.White.copy(alpha = 0.08f), RoundedCornerShape(15.dp))) {
+            Text(
+                text = translatedText,
+                modifier = Modifier.fillMaxSize().padding(16.dp),
+                color = Color(0xFFFFD700),
+                fontSize = 18.sp
+            )
+            
+            // أدوات أسفل اليمين (سبيكر، مشاركة، نسخ)
+            Row(modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)) {
+                IconButton(onClick = { /* نسخ */ }) { Text("📋") }
+                IconButton(onClick = { /* مشاركة صوتية */ }) { Text("📤") }
+                IconButton(onClick = { /* نطق */ }) { Text("🔊") }
+            }
+        }
     }
 }
