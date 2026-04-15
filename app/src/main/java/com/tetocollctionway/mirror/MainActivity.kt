@@ -25,6 +25,9 @@ import com.tetocollctionway.mirror.ui.theme.MirrorScorpionTheme
 import com.tetocollctionway.mirror.ui.cards.TranslatorScreen
 import dagger.hilt.android.AndroidEntryPoint
 
+// كلاس بسيط للبيانات عشان السيرفر ميتلخبطش
+data class MirrorCard(val nameRes: Int, val icon: String, val borderColor: Color)
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,39 +62,39 @@ fun MainMenuScreen(navController: NavController) {
         
         Spacer(modifier = Modifier.height(30.dp))
 
+        val cards = listOf(
+            MirrorCard(R.string.card_translator, "🌐", Color(0xFF42A5F5)),
+            MirrorCard(R.string.card_conversation, "💬", Color(0xFFFF7043)),
+            MirrorCard(R.string.card_lens, "📷", Color(0xFFFFCA28)),
+            MirrorCard(R.string.card_spiritual, "📖", Color(0xFFAB47BC)),
+            MirrorCard(R.string.card_games, "🎮", Color(0xFF66BB6A)),
+            MirrorCard(R.string.card_settings, "⚙️", Color(0xFF78909C))
+        )
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            val cards = listOf(
-                Triple(R.string.card_translator, "🌐", Color(0xFF42A5F5)),
-                Triple(R.string.card_conversation, "💬", Color(0xFFFF7043)),
-                Triple(R.string.card_lens, "📷", Color(0xFFFFCA28)),
-                Triple(R.string.card_spiritual, "📖", Color(0xFFAB47BC)),
-                Triple(R.string.card_games, "🎮", Color(0xFF66BB6A)),
-                Triple(R.string.card_settings, "⚙️", Color(0xFF78909C))
-            )
-
-            items(cards) { (nameRes, icon, borderColor) ->
+            items(cards) { card ->
                 Surface(
                     shape = RoundedCornerShape(20.dp),
                     color = Color.White.copy(alpha = 0.07f),
                     modifier = Modifier
                         .height(140.dp)
-                        .clickable { if(nameRes == R.string.card_translator) navController.navigate("translator") }
-                        .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(20.dp))
+                        .clickable { if(card.nameRes == R.string.card_translator) navController.navigate("translator") }
+                        .border(width = 1.dp, color = card.borderColor, shape = RoundedCornerShape(20.dp))
                 ) {
                     Column(
                         modifier = Modifier.fillMaxSize().padding(10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text(text = icon, fontSize = 45.sp)
+                        Text(text = card.icon, fontSize = 45.sp)
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = stringResource(id = nameRes),
+                            text = stringResource(card.nameRes),
                             color = Color.White,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium

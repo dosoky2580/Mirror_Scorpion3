@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Mirror Pro</string>
+    <string name="card_translator">Translator</string>
+    <string name="card_conversation">Conversation</string>
+    <string name="card_lens">Lens</string>
+    <string name="card_spiritual">Spiritual</string>
+    <string name="card_games">Games</string>
+    <string name="card_settings">Settings</string>
+</resources>
