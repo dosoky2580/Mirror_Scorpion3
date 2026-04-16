@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+            
+            <ImageView
+                android:id="@+id/scorpion_top"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:src="@drawable/scorpion_real"
+                android:layout_centerHorizontal="true" />
+                
+            <ImageView
+                android:id="@+id/scorpion_reflection"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:src="@drawable/scorpion_real"
+                android:alpha="0.2"
+                android:rotationX="180"
+                android:layout_below="@id/scorpion_top"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <GridLayout 
+            android:id="@+id/main_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false">
+            </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

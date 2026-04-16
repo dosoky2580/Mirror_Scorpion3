@@ -1,10 +1,9 @@
-[
-  {"name": "Arabic", "code": "ar"},
-  {"name": "English", "code": "en"},
-  {"name": "Turkish", "code": "tr"},
-  {"name": "French", "code": "fr"},
-  {"name": "German", "code": "de"},
-  {"name": "Spanish", "code": "es"},
-  {"name": "Russian", "code": "ru"},
-  {"name": "Chinese", "code": "zh"}
-]
+{
+  "languages": [
+    {"code": "ar", "name": "Arabic"},
+    {"code": "en", "name": "English"},
+    {"code": "tr", "name": "Turkish"},
+    {"code": "fr", "name": "French"},
+    {"code": "de", "name": "German"}
+  ]
+}
