@@ -1,33 +1,29 @@
-name: Final Build
+name: Android CI
+
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  android-build:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4 # أحدث إصدار
+    - uses: actions/checkout@v4
+    
+    - name: set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        # شيلنا الـ cache مؤقتاً عشان السيرفر واقع
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4 # أحدث إصدار يدعم Node 24
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4 # تحديث النسخة لـ v4 لحل مشكلة الكاش
-        with:
-          gradle-version: 8.7
-
-      - name: Build APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Mirror-Pro-Build
-          path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug --stacktrace --no-daemon
