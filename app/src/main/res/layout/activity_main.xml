@@ -18,14 +18,14 @@
                 android:id="@+id/scorpion_top"
                 android:layout_width="150dp"
                 android:layout_height="120dp"
-                android:src="@drawable/scorpion_real"
+                android:src="@mipmap/ic_launcher"
                 android:layout_centerHorizontal="true" />
                 
             <ImageView
                 android:id="@+id/scorpion_reflection"
                 android:layout_width="150dp"
                 android:layout_height="120dp"
-                android:src="@drawable/scorpion_real"
+                android:src="@mipmap/ic_launcher"
                 android:alpha="0.2"
                 android:rotationX="180"
                 android:layout_below="@id/scorpion_top"
