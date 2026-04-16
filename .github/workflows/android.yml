@@ -15,13 +15,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        # تم إلغاء خاصية الكاش هنا لتفادي عطل السيرفر
+        # حذفنا سطر الكاش نهائياً لأنه هو اللي بيسبب الـ Error 400
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      # استخدام --no-build-cache للإجبار على بناء جديد نظيف
+      # استخدام --no-build-cache بيمنع السيرفر من محاولة حفظ أي ملفات في الكاش المعطل
       run: ./gradlew assembleDebug --no-build-cache --stacktrace
       
     - name: Upload APK
