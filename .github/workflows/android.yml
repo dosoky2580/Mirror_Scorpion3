@@ -15,7 +15,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        # حذفنا سطر الكاش نهائياً لأنه هو اللي بيسبب الـ Error 400
+        # حذفنا سطر الكاش نهائياً عشان نهرب من Error 400
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
