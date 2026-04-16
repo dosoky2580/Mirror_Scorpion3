@@ -15,14 +15,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        # حذفنا سطر الكاش نهائياً عشان نهرب من Error 400
+        # ملاحظة: حذفنا الكاش نهائياً هنا
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      # استخدام --no-build-cache بيمنع السيرفر من محاولة حفظ أي ملفات في الكاش المعطل
-      run: ./gradlew assembleDebug --no-build-cache --stacktrace
+      # استخدام --no-daemon بيخلي السيرفر ميعلقش في عمليات خلفية
+      run: ./gradlew assembleDebug --no-build-cache --no-daemon
       
     - name: Upload APK
       uses: actions/upload-artifact@v4
