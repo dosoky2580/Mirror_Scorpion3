@@ -3,8 +3,6 @@ name: Android CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -20,10 +18,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        # شيلنا الـ cache مؤقتاً عشان السيرفر واقع
+        # ملاحظة: تم حذف سطر الـ cache هنا عمداً
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug --stacktrace --no-daemon
+    - name: Build APK (Pure Build)
+      run: ./gradlew assembleDebug --no-build-cache --no-daemon --stacktrace
