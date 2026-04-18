@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'org.tetocollctionway.mirror'
+    namespace "org.tetocollctionway.mirror"
     compileSdk 34
 
     defaultConfig {
