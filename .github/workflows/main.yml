@@ -22,4 +22,5 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build APK
-        run: ./gradlew assembleDebug --no-daemon
+        run: |
+          ./gradlew assembleDebug --no-daemon || (echo "فشل البناء.. إليك تفاصيل الخطأ:" && ./gradlew assembleDebug --stacktrace --info | tail -n 100 && exit 1)
