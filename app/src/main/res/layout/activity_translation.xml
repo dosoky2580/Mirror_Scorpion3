@@ -4,28 +4,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#FFFFFF">
+    android:background="#E3F2FD">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_marginBottom="10dp">
-        <Spinner android:id="@+id/spinnerLanguage" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        
         <Spinner android:id="@+id/spinnerVoice" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        
+        <Button android:id="@+id/btnSelectLang" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:text="AR ➔ TR"
+            android:backgroundTint="#1565C0"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#F9F9F9">
+        android:layout_height="200dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp">
         <EditText
             android:id="@+id/inputEditor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="تكلم الآن..."
+            android:hint="تكلم أو اكتب..."
             android:gravity="top"
-            android:padding="10dp"
+            android:padding="12dp"
             android:background="@null"/>
         <ImageButton
             android:id="@+id/btnMic"
@@ -33,21 +43,23 @@
             android:layout_height="56dp"
             android:layout_gravity="bottom|left"
             android:layout_margin="8dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            android:src="@android:drawable/ic_btn_speak_now"/>
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
     </FrameLayout>
 
-    <View android:layout_width="match_parent" android:layout_height="2dp" android:background="#EEEEEE" android:layout_marginVertical="10dp"/>
+    <View android:layout_width="match_parent" android:layout_height="2dp" android:layout_marginVertical="15dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#F0F4F8">
+        android:layout_height="200dp"
+        android:background="#F5F5F5"
+        android:elevation="2dp">
         <TextView
             android:id="@+id/outputEditor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="12dp"
+            android:textColor="#212121"
             android:text="الترجمة ستظهر هنا..."/>
         
         <LinearLayout
@@ -56,9 +68,7 @@
             android:layout_gravity="bottom|right"
             android:orientation="horizontal"
             android:layout_margin="8dp">
-            <ImageButton android:id="@+id/btnCopy" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_edit" android:background="?attr/selectableItemBackgroundBorderless"/>
-            <ImageButton android:id="@+id/btnShare" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_share" android:background="?attr/selectableItemBackgroundBorderless"/>
-            <ImageButton android:id="@+id/btnSpeak" android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:visibility="gone" android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton android:id="@+id/btnSpeak" android:layout_width="48dp" android:layout_height="48dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:visibility="gone"/>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
