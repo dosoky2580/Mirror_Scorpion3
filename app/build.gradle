@@ -13,47 +13,33 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        
+        // تفعيل الـ MultiDex ضروري جداً لمكتبات الـ AI الضخمة
+        multiDexEnabled true
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    
-    // تفعيل خاصية الـ ViewBinding و Compose لعام 2026
     buildFeatures {
         compose true
-        viewBinding true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.4'
     }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 }
 
 dependencies {
-    // المكتبات الأساسية
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.compose.material3:material3:1.2.1"
+    implementation "androidx.multidex:multidex:2.0.1"
     
-    // --- ترسانة الـ AI لعام 2026 ---
-    
-    # 1. مكتبة OpenAI (لكارت الإلهام والذكاء الصناعي)
-    implementation "com.openai:openai-client:3.0.0" 
-    
-    # 2. مكتبة Google ML Kit (للعدسة وترجمة المستندات بدون إنترنت)
+    // مكتبات الـ AI (نسخ مستقرة لعام 2026)
     implementation "com.google.mlkit:translation:17.0.1"
     implementation "com.google.mlkit:text-recognition:16.0.0"
-    
-    # 3. مكتبة TensorFlow Lite (لتحليل حالة المستخدم النفسية محلياً)
-    implementation "org.tensorflow:tensorflow-lite:2.14.0"
-    
-    # 4. مكتبة التفاعل مع الصوت (لأصوات سيف وسلمى وسارة وسما)
-    implementation "com.google.android.gms:play-services-mlkit-text-to-speech:11.0.0"
-    
-    # 5. مكتبة Retrofit (للتواصل مع Netlify و الـ Cloud Video Generation)
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 }
