@@ -1,4 +1,4 @@
-name: Build Mirror Scorpion (Flutter)
+name: Build Mirror Scorpion (Kotlin Native)
 on:
   push:
     branches: [ main ]
@@ -9,20 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Set up Java
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.19.0' # أو أحدث إصدار مستقر في 2026
-          channel: 'stable'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build APK
-        run: flutter build apk --release
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
