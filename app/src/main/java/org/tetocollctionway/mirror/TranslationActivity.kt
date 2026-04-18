@@ -2,15 +2,14 @@ package org.tetocollctionway.mirror
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class TranslationActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var tts: TextToSpeech? = null
-    // القائمة كما اتفقنا: 4 أصوات للعائلة
-    private val familyVoices = listOf("سيف", "سلمى", "سما", "سارة")
+    // القائمة الذهبية: 4 عائلة + 1 مستخدم
+    private val voiceChoices = listOf("سيف", "سلمى", "سما", "سارة", "صوتي الخاص")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +17,10 @@ class TranslationActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         tts = TextToSpeech(this, this)
         val spinnerVoice = findViewById<Spinner>(R.id.spinnerVoice)
-        val voiceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, familyVoices)
-        spinnerVoice.adapter = voiceAdapter
-
-        // إضافة زرار اختيار اللغة هنا برمجياً أو عبر الـ XML
-        Toast.makeText(this, "اختر اللغة من القائمة العلوية", Toast.LENGTH_LONG).show()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, voiceChoices)
+        spinnerVoice.adapter = adapter
+        
+        // هنا الكود سيقوم بربط اختيار اللغة داخل الشاشة
     }
 
     override fun onInit(status: Int) {
