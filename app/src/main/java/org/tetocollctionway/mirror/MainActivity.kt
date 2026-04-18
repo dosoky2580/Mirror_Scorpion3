@@ -10,19 +10,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // كارت الترجمة النصية
+        // تعريف الأزرار والربط بالشاشات
         findViewById<Button>(R.id.btnTextTranslation).setOnClickListener {
             startActivity(Intent(this, TranslationActivity::class.java))
         }
 
-        // كارت حوار مترجم
         findViewById<Button>(R.id.btnConversation).setOnClickListener {
             startActivity(Intent(this, ConversationActivity::class.java))
         }
 
-        // كارت الإعدادات
         findViewById<Button>(R.id.btnSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        
+        // كارت العدسة (سنقوم ببرمجة شاشته في الخطوة القادمة)
+        findViewById<Button>(R.id.btnLens).setOnClickListener {
+            // سيتم ربط شاشة العدسة هنا
         }
     }
 }

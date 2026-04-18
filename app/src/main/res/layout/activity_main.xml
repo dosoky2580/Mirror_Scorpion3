@@ -22,12 +22,12 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:layout_marginTop="20dp">
-            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="8dp" android:backgroundTint="#2196F3"/>
-            <Button android:id="@+id/btnConversation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="8dp" android:backgroundTint="#4CAF50"/>
-            <Button android:id="@+id/btnLens" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="8dp" android:backgroundTint="#9C27B0"/>
-            <Button android:id="@+id/btnStories" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="8dp" android:backgroundTint="#FF5722"/>
-            <Button android:id="@+id/btnGames" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="8dp" android:backgroundTint="#FFC107"/>
-            <Button android:id="@+id/btnSettings" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="8dp" android:backgroundTint="#607D8B"/>
+            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="8dp" android:backgroundTint="#2196F3"/>
+            <Button android:id="@+id/btnConversation" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="8dp" android:backgroundTint="#4CAF50"/>
+            <Button android:id="@+id/btnLens" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="8dp" android:backgroundTint="#9C27B0"/>
+            <Button android:id="@+id/btnStories" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="8dp" android:backgroundTint="#FF5722"/>
+            <Button android:id="@+id/btnGames" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="8dp" android:backgroundTint="#FFC107"/>
+            <Button android:id="@+id/btnSettings" android:layout_width="0dp" android:layout_height="130dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="8dp" android:backgroundTint="#607D8B"/>
         </GridLayout>
     </LinearLayout>
 </ScrollView>
