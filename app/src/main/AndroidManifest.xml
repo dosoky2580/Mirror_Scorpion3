@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="Mirror Scorpion"
-        android:theme="@style/Theme.Mirror"
-        android:icon="@mipmap/ic_launcher">
+        android:theme="@style/Theme.Mirror">
         <activity
             android:name="org.tetocollctionway.mirror.MainActivity"
             android:exported="true">
