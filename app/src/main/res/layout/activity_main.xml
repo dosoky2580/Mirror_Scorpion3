@@ -2,59 +2,43 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
-    
-    <LinearLayout
+    android:background="#F0F7FF"> <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal">
+        android:padding="16dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="#1A1A1A"
-            android:layout_marginBottom="16dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="SCORPION\nREVERSE MIRROR"
-                android:textColor="#FFFFFF"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-        </FrameLayout>
-
-        <Button
-            android:id="@+id/btnLang"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🌐 لغة التطبيق"
-            android:backgroundTint="#000000"
-            android:textColor="#FFFFFF" />
+            android:text="Mirror Scorpion 2026"
+            android:textColor="#1A237E"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="30dp">
             
-            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="6dp" android:backgroundTint="#2C2C2C" android:lineSpacingExtra="4dp"/>
-            <Button android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="6dp" android:backgroundTint="#2C2C2C"/>
-            <Button android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="6dp" android:backgroundTint="#2C2C2C"/>
-            <Button android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="6dp" android:backgroundTint="#2C2C2C"/>
-            <Button android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="6dp" android:backgroundTint="#2C2C2C"/>
-            <Button android:layout_width="0dp" android:layout_height="120dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="6dp" android:backgroundTint="#2C2C2C"/>
+            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="8dp" android:backgroundTint="#42A5F5" android:textColor="#FFFFFF" android:textAllCaps="false" android:textSize="16sp"/>
+            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="8dp" android:backgroundTint="#66BB6A" android:textColor="#FFFFFF"/>
+            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="8dp" android:backgroundTint="#AB47BC" android:textColor="#FFFFFF"/>
+            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="8dp" android:backgroundTint="#FF7043" android:textColor="#FFFFFF"/>
+            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="8dp" android:backgroundTint="#FFA726" android:textColor="#FFFFFF"/>
+            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="8dp" android:backgroundTint="#78909C" android:textColor="#FFFFFF"/>
         </GridLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:text="Heart: Adham"
-            android:textColor="#CCCCCC"
+            android:textColor="#5C6BC0"
             android:textStyle="italic"/>
     </LinearLayout>
 </ScrollView>
