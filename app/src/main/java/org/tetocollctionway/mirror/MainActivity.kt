@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         // بما أننا استخدمنا GridLayout في الـ XML، الكروت هي عبارة عن أزرار (Buttons)
         // الكارت الأول هو أول زر في الجريد
         val btnTextTranslation = findViewById<Button>(R.id.btnTextTranslation)
+        val btnConversation = findViewById<Button>(R.id.btnConversation)
+        btnConversation.setOnClickListener { startActivity(Intent(this, ConversationActivity::class.java)) }
         btnTextTranslation.setOnClickListener {
             val intent = Intent(this, TranslationActivity::class.java)
             startActivity(intent)
