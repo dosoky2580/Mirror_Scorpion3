@@ -2,12 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3F2FD"> <LinearLayout
+    android:background="#E3F2FD">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,31 +16,18 @@
             android:textSize="28sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:shadowColor="#FFFFFF"
-            android:shadowRadius="2.0"/>
-
+            android:layout_marginTop="20dp"/>
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:layout_marginTop="20dp">
-            
-            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="8dp" android:backgroundTint="#2196F3" android:textColor="#FFFFFF" android:textSize="16sp" android:elevation="4dp"/>
-            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="8dp" android:backgroundTint="#4CAF50" android:textColor="#FFFFFF"/>
-            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="8dp" android:backgroundTint="#9C27B0" android:textColor="#FFFFFF"/>
-            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="8dp" android:backgroundTint="#FF5722" android:textColor="#FFFFFF"/>
-            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="8dp" android:backgroundTint="#FFC107" android:textColor="#FFFFFF"/>
-            <Button android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="8dp" android:backgroundTint="#607D8B" android:textColor="#FFFFFF"/>
+            <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🌐\nترجمة نصية" android:layout_margin="8dp" android:backgroundTint="#2196F3"/>
+            <Button android:id="@+id/btnConversation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="🗣️\nحوار مترجم" android:layout_margin="8dp" android:backgroundTint="#4CAF50"/>
+            <Button android:id="@+id/btnLens" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="📑\nمستندات وعدسة" android:layout_margin="8dp" android:backgroundTint="#9C27B0"/>
+            <Button android:id="@+id/btnStories" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="✨\nقصص وإلهام" android:layout_margin="8dp" android:backgroundTint="#FF5722"/>
+            <Button android:id="@+id/btnGames" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="♚\nألعاب 3D" android:layout_margin="8dp" android:backgroundTint="#FFC107"/>
+            <Button android:id="@+id/btnSettings" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="⚙️\nالإعدادات" android:layout_margin="8dp" android:backgroundTint="#607D8B"/>
         </GridLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="Heart: Adham"
-            android:textColor="#1565C0"
-            android:textStyle="bold|italic"/>
     </LinearLayout>
 </ScrollView>

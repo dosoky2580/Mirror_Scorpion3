@@ -10,16 +10,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // بما أننا استخدمنا GridLayout في الـ XML، الكروت هي عبارة عن أزرار (Buttons)
-        // الكارت الأول هو أول زر في الجريد
-        val btnTextTranslation = findViewById<Button>(R.id.btnTextTranslation)
-        val btnConversation = findViewById<Button>(R.id.btnConversation)
-        btnConversation.setOnClickListener { startActivity(Intent(this, ConversationActivity::class.java)) }
-        val btnSettings = findViewById<Button>(R.id.btnSettings)
-        btnSettings.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
-        btnTextTranslation.setOnClickListener {
-            val intent = Intent(this, TranslationActivity::class.java)
-            startActivity(intent)
+        // كارت الترجمة النصية
+        findViewById<Button>(R.id.btnTextTranslation).setOnClickListener {
+            startActivity(Intent(this, TranslationActivity::class.java))
+        }
+
+        // كارت حوار مترجم
+        findViewById<Button>(R.id.btnConversation).setOnClickListener {
+            startActivity(Intent(this, ConversationActivity::class.java))
+        }
+
+        // كارت الإعدادات
+        findViewById<Button>(R.id.btnSettings).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 }
