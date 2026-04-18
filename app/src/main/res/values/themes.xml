@@ -1,4 +1,4 @@
 <resources>
-    <style name="Theme.Mirror" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Mirror" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 </resources>
