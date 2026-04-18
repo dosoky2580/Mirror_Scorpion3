@@ -9,18 +9,13 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant Permission
-        run: chmod +x gradlew
-
       - name: Build APK
         run: |
-          ./gradlew assembleDebug --no-daemon || (echo "فشل البناء.. إليك تفاصيل الخطأ:" && ./gradlew assembleDebug --stacktrace --info | tail -n 100 && exit 1)
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace --no-daemon

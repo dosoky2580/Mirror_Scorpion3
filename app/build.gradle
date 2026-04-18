@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace "org.tetocollctionway.mirror"
+    namespace 'org.tetocollctionway.mirror'
     compileSdk 34
 
     defaultConfig {
@@ -13,8 +13,6 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-        
-        // تفعيل الـ MultiDex ضروري جداً لمكتبات الـ AI الضخمة
         multiDexEnabled true
     }
 
@@ -25,10 +23,14 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.4'
     }
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = '17'
     }
 }
 
@@ -37,7 +39,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:1.2.1"
     implementation "androidx.multidex:multidex:2.0.1"
     
-    // مكتبات الـ AI (نسخ مستقرة لعام 2026)
+    // ترسانة الـ AI 2026
     implementation "com.google.mlkit:translation:17.0.1"
     implementation "com.google.mlkit:text-recognition:16.0.0"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
