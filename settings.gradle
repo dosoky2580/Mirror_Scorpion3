@@ -6,7 +6,8 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // غيرنا دي لـ PREFER_SETTINGS عشان نسمح بالمرونة مع مكتبات الـ AI
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
