@@ -29,10 +29,12 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    packaging {
+    packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "META-INF/DEPENDENCIES"
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += 'META-INF/DEPENDENCIES'
+            excludes += 'META-INF/LICENSE'
+            excludes += 'META-INF/NOTICE'
         }
     }
 }
@@ -43,6 +45,7 @@ dependencies {
     implementation "androidx.activity:activity-compose:1.8.2"
     implementation "androidx.multidex:multidex:2.0.1"
     
+    // محركات الذكاء الاصطناعي
     implementation 'com.google.mlkit:language-id:17.0.4'
     implementation 'com.google.mlkit:translate:17.0.1'
 }
