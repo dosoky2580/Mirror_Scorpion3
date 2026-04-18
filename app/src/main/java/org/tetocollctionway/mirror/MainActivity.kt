@@ -1,15 +1,14 @@
 package org.tetocollctionway.mirror
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
+import android.app.Activity
+import android.widget.TextView
 
-class MainActivity : ComponentActivity() {
+class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Text(text = "Mirror Scorpion 2026: AI Ready")
-        }
+        val textView = TextView(this)
+        textView.text = "Mirror Scorpion 2026 - Heart of Adham"
+        setContentView(textView)
     }
 }
