@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         val btnTextTranslation = findViewById<Button>(R.id.btnTextTranslation)
         val btnConversation = findViewById<Button>(R.id.btnConversation)
         btnConversation.setOnClickListener { startActivity(Intent(this, ConversationActivity::class.java)) }
+        val btnSettings = findViewById<Button>(R.id.btnSettings)
+        btnSettings.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
         btnTextTranslation.setOnClickListener {
             val intent = Intent(this, TranslationActivity::class.java)
             startActivity(intent)
