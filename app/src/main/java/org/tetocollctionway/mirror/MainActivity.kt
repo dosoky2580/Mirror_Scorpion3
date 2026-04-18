@@ -13,11 +13,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnTextTranslation).setOnClickListener {
             startActivity(Intent(this, TranslationActivity::class.java))
         }
-
         findViewById<Button>(R.id.btnConversation).setOnClickListener {
             startActivity(Intent(this, ConversationActivity::class.java))
         }
-
         findViewById<Button>(R.id.btnSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
