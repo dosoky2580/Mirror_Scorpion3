@@ -16,14 +16,6 @@ android {
         multiDexEnabled true
     }
 
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.4'
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -39,7 +31,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:1.2.1"
     implementation "androidx.multidex:multidex:2.0.1"
     
-    // ترسانة الـ AI 2026
+    // مكتبات الـ AI 2026
     implementation "com.google.mlkit:translation:17.0.1"
     implementation "com.google.mlkit:text-recognition:16.0.0"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
