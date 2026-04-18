@@ -24,6 +24,13 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += 'META-INF/DEPENDENCIES'
+        }
+    }
 }
 
 dependencies {
@@ -31,7 +38,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     
-    // قوام الذكاء الاصطناعي (موجود ولن نتنازل عنه)
+    // ترسانة الذكاء الاصطناعي - لا تنازل عنها
     implementation 'com.google.mlkit:language-id:17.0.4'
     implementation 'com.google.mlkit:translate:17.0.1'
 }
