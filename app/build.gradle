@@ -4,11 +4,6 @@ plugins {
 }
 
 android {
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     namespace 'org.tetocollctionway.mirror'
     compileSdk 34
 
@@ -26,7 +21,6 @@ android {
     }
 
     composeOptions {
-        // تحديث النسخة لتتوافق مع Kotlin 1.9.20
         kotlinCompilerExtensionVersion '1.5.3'
     }
 
@@ -34,9 +28,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
-    kotlinOptions {
-        jvmTarget = '17'
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/DEPENDENCIES"
+        }
     }
 }
 
@@ -44,11 +41,8 @@ dependencies {
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.compose.material3:material3:1.2.1"
     implementation "androidx.activity:activity-compose:1.8.2"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.5.4"
-    debugImplementation "androidx.compose.ui:ui-tooling:1.5.4"
+    implementation "androidx.multidex:multidex:2.0.1"
     
-    // AI Libraries (ML Kit)
     implementation 'com.google.mlkit:language-id:17.0.4'
     implementation 'com.google.mlkit:translate:17.0.1'
 }
