@@ -5,13 +5,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+// مسحنا allprojects من هنا لأننا هنعتمد على الإعدادات في settings.gradle 
+// وده الأسلوب الجديد اللي بيمنع الـ Error اللي جالك
