@@ -3,67 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#0F2027"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="#121212">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ترجمة المستندات"
+        android:text="ترجمة المستندات (Scorpion PDF)"
         android:textColor="#FFFFFF"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_gravity="center"
         android:layout_marginBottom="30dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
-        
-        <EditText
-            android:id="@+id/edtUrlOrPath"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="#1AFFFFFF"
-            android:hint="أدخل رابط المستند أو مساره..."
-            android:textColor="#FFFFFF"
-            android:textColorHint="#88FFFFFF"
-            android:textSize="18sp"
-            android:padding="15dp"/>
-            
-        <ImageButton
-            android:id="@+id/btnSearchUrl"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@android:drawable/ic_menu_search"
-            android:background="?attr/selectableItemBackground"
-            android:tint="#4FC3F7"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
 
     <Button
         android:id="@+id/btnBrowse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="فتح من المستعرض"
-        android:textSize="18sp"
-        android:layout_gravity="right"
-        android:layout_marginBottom="40dp"/>
-
-    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:text="اختر ملف PDF"
+        android:backgroundTint="#6200EE"/>
+
+    <TextView
+        android:id="@+id/txtFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#BBBBBB"
+        android:text="لم يتم اختيار ملف"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/btnTranslateDoc"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="تــرجــمــة"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"
-        android:visibility="gone"/> </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="ابدأ الترجمة الفورية"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:backgroundTint="#03DAC5"/>
+
+</LinearLayout>
