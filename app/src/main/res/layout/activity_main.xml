@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_gradient_bg">
+    android:background="#0F2027">
 
     <LinearLayout
         android:id="@+id/headerArea"
@@ -13,31 +13,12 @@
         android:padding="20dp"
         android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="80dp">
-            <ImageView
-                android:id="@+id/scorpionTop"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:src="@android:drawable/ic_menu_compass"
-                app:tint="#FFFFFF"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/scorpionTop"
-                android:rotationX="180"
-                android:alpha="0.2"
-                android:src="@android:drawable/ic_menu_compass"
-                app:tint="#FFFFFF"/>
-        </RelativeLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MIRROR ULTIMATE"
+            android:text="MIRROR SCORPION"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:letterSpacing="0.2"/>
     </LinearLayout>
@@ -51,8 +32,9 @@
         android:alignmentMode="alignMargins">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardTranslate"
             android:layout_width="0dp"
-            android:layout_height="140dp"
+            android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             app:cardCornerRadius="20dp"
@@ -64,18 +46,46 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardDialogue"
             android:layout_width="0dp"
-            android:layout_height="140dp"
+            android:layout_height="150dp"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             app:cardCornerRadius="20dp"
             app:cardBackgroundColor="#33FFFFFF">
             <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_camera" app:tint="#FFFFFF"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="العدسة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_btn_speak_now" app:tint="#FFFFFF"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="حوار مترجم" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        </GridLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDocs"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#33FFFFFF">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_search" app:tint="#FFFFFF"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="مستندات وعدسة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardStories"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#33FFFFFF">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_book" app:tint="#FFFFFF"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="قصص قرآنية" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
 </RelativeLayout>
