@@ -4,24 +4,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#0F2027"
-    android:padding="16dp">
+    android:padding="25dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="الإعدادات"
+        android:text="إعدادات ميرور"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:layout_marginBottom="24dp"/>
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"/>
 
     <Button
         android:id="@+id/btnVoiceClone"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="👤 نسخ صوت المستخدم (Voice Cloning)"
+        android:text="👤 نسخ صوت المستخدم"
         android:textColor="#FFFFFF"
-        android:gravity="start"/>
+        android:textSize="24sp"
+        android:gravity="start"
+        android:padding="15dp"/>
 
     <Button
         android:id="@+id/btnLangs"
@@ -30,7 +33,9 @@
         android:layout_height="wrap_content"
         android:text="🌐 تنزيل اللغات"
         android:textColor="#FFFFFF"
-        android:gravity="start"/>
+        android:textSize="24sp"
+        android:gravity="start"
+        android:padding="15dp"/>
 
     <Button
         android:id="@+id/btnPro"
@@ -39,27 +44,7 @@
         android:layout_height="wrap_content"
         android:text="⭐ تفعيل النسخة المدفوعة"
         android:textColor="#FFD700"
-        android:gravity="start"/>
-        
-    <View 
-        android:layout_width="match_parent" 
-        android:layout_height="1dp" 
-        android:background="#22FFFFFF" 
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/aboutDev"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="المطور: tetocollctionway\nMirror Scorpion v1.0"
-        android:textColor="#88FFFFFF"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:paddingBottom="10dp"/>
+        android:textSize="24sp"
+        android:gravity="start"
+        android:padding="15dp"/>
 </LinearLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.MirrorScorpion" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="android:windowBackground">#0F2027</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

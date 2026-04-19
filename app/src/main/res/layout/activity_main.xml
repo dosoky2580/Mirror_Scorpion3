@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0F2027">
 
-    <ImageButton
-        android:id="@+id/btnSettings"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="20dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_menu_manage"
-        android:contentDescription="Settings" />
+    <ImageView
+        android:id="@+id/imgScorpion"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@android:drawable/ic_menu_compass"
+        android:tint="#FFFFFF"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@id/imgScorpion"
+        android:layout_centerHorizontal="true"
+        android:src="@android:drawable/ic_menu_compass"
+        android:rotationX="180"
+        android:alpha="0.2"
+        android:tint="#FFFFFF"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSettings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_alignParentBottom="true"
+        android:layout_margin="25dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#1AFFFFFF">
 
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@android:drawable/ic_menu_compass"
-            android:tint="#FFFFFF"/>
-
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1dp"
-            android:background="#44FFFFFF"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@android:drawable/ic_menu_compass"
-            android:rotationX="180"
-            android:alpha="0.3"
-            android:tint="#FFFFFF"/>
-            
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MIRROR SCORPION"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="20dp"
-            android:letterSpacing="0.3"
-            android:textStyle="bold"/>
-    </LinearLayout>
-
+            android:gravity="center"
+            android:padding="30dp"
+            android:orientation="horizontal">
+            
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@android:drawable/ic_menu_manage"
+                android:tint="#FFFFFF"/>
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الإعدادات"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
