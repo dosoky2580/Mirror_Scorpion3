@@ -10,20 +10,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // ربط كارت الترجمة النصية (الكارت الأول)
         findViewById<CardView>(R.id.cardTextTranslate).setOnClickListener {
             startActivity(Intent(this, TextTranslateActivity::class.java))
         }
         
+        // ربط كارت حوار مترجم (الكارت الثاني)
+        findViewById<CardView>(R.id.cardChatTranslate).setOnClickListener {
+            startActivity(Intent(this, ChatTranslateActivity::class.java))
+        }
+
+        // ربط كارت مستندات وعدسة (الكارت الثالث)
         findViewById<CardView>(R.id.cardDocLens).setOnClickListener {
             startActivity(Intent(this, DocumentTranslateActivity::class.java))
         }
 
-        // الكروت الباقية جاهزة للربط فور برمجة شاشاتها
-        val cardIds = listOf(R.id.cardChatTranslate, R.id.cardStories, R.id.cardGames, R.id.cardSettings)
-        cardIds.forEach { id ->
-            findViewById<CardView>(id).setOnClickListener {
-                // Toast.makeText(this, "قريباً في ميرور", Toast.LENGTH_SHORT).show()
-            }
-        }
+        // باقي الكروت (الإعدادات، القصص، الألعاب) سيتم ربطها عند برمجة شاشاتها
     }
 }
