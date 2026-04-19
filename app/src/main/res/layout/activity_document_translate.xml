@@ -1,68 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#121212">
 
     <LinearLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mirror Scorpion PDF"
-            android:textColor="#03DAC5"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:weightSum="2">
 
         <Button
-            android:id="@+id/btnBrowse"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnTabPdf"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="اسحب ملف"
-            android:backgroundTint="#6200EE" />
+            android:layout_weight="1"
+            android:text="مستندات PDF"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#1E1E1E"/>
 
-        <TextView
-            android:id="@+id/txtFileName"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnTabLens"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="جاهز للسحب"
-            android:textColor="#BBBBBB"
-            android:layout_marginTop="5dp" />
+            android:layout_weight="1"
+            android:text="العدسة (Lens)"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="#1E1E1E"/>
     </LinearLayout>
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/containerFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:layout_above="@+id/btnTranslateDoc"
-        android:layout_marginTop="20dp"
-        android:background="#1E1E1E"
-        android:padding="10dp">
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txtFinalResult"
+        <LinearLayout
+            android:id="@+id/layoutPdf"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:lineSpacingExtra="8dp"
-            android:text="النص المترجم سيظهر هنا..." />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@android:drawable/ic_menu_save"
+                android:alpha="0.5"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ارفع ملف PDF للترجمة"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp"/>
 
-    <Button
-        android:id="@+id/btnTranslateDoc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="ابدأ سحب وترجمة الورقة"
-        android:visibility="gone"
-        android:backgroundTint="#03DAC5" />
+            <Button
+                android:id="@+id/btnPickFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اختيار ملف"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#03DAC5"
+                android:textColor="#000000"/>
+        </LinearLayout>
 
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layoutLens"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+            
+            <androidx.camera.view.PreviewView
+                android:id="@+id/cameraPreview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#000000"/>
+
+            <TextView
+                android:id="@+id/tvLensResult"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#1E1E1E"
+                android:textColor="#03DAC5"
+                android:padding="8dp"
+                android:text="وجه الكاميرا نحو النص..."/>
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>
