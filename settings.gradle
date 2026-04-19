@@ -6,11 +6,12 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    // التغيير هنا: السماح للمشروع بالبحث في المستودعات المحددة هنا وفي ملف build.gradle
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven { url "https://jitpack.io" } // هنا بيلاقي مكتبة الـ PDF
     }
 }
 rootProject.name = "Mirror_Scorpion3"
