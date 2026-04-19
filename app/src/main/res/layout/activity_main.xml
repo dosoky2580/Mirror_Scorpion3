@@ -14,20 +14,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp">
-
+            android:gravity="center">
             <ImageView
                 android:id="@+id/imgScorpion"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_centerHorizontal="true"
-                android:src="@android:drawable/ic_menu_compass" 
-                android:contentDescription="Scorpion" />
-
+                android:src="@android:drawable/ic_menu_compass" />
             <ImageView
-                android:id="@+id/imgScorpionMirror"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_below="@id/imgScorpion"
@@ -35,8 +29,7 @@
                 android:layout_marginTop="-30dp"
                 android:alpha="0.3"
                 android:rotation="180"
-                android:src="@android:drawable/ic_menu_compass"
-                android:contentDescription="Mirror Reflection" />
+                android:src="@android:drawable/ic_menu_compass" />
         </RelativeLayout>
 
         <GridLayout
@@ -46,59 +39,30 @@
             android:alignmentMode="alignMargins"
             android:useDefaultMargins="true">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardTextTranslate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#1E1E1E">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@android:drawable/ic_menu_sort_alphabetically" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ترجمة نصية"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
+            <androidx.cardview.widget.CardView android:id="@+id/cardTextTranslate" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="ترجمة نصية" />
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#1E1E1E">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@android:drawable/ic_btn_speak_now" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="حوار مترجم"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
+            <androidx.cardview.widget.CardView android:id="@+id/cardChatTranslate" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="حوار مترجم" />
             </androidx.cardview.widget.CardView>
-            
-            </GridLayout>
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardDocLens" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="مستندات وعدسة" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardStories" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="قصص وإلهام" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardGames" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="الألعاب" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardSettings" style="@style/MyCardStyle">
+                <TextView style="@style/MyCardTextStyle" android:text="الإعدادات" />
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
     </LinearLayout>
 </ScrollView>

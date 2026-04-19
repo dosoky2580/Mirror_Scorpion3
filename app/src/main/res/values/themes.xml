@@ -1,6 +1,20 @@
-<resources>
-    <style name="Theme.MirrorScorpion" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorSecondary">@color/teal_200</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MirrorScorpion" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    
+    <style name="MyCardStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="app:cardCornerRadius">12dp</item>
+        <item name="app:cardBackgroundColor">#1E1E1E</item>
+    </style>
+
+    <style name="MyCardTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>
