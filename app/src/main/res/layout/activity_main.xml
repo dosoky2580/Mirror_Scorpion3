@@ -1,90 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0A0A"> <LinearLayout
+    android:background="@drawable/main_gradient_bg">
+
+    <LinearLayout
+        android:id="@+id/headerArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp"
+        android:gravity="center">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="20dp">
-            
+            android:layout_width="100dp"
+            android:layout_height="80dp">
             <ImageView
-                android:id="@+id/scorpionReal"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:src="@android:drawable/ic_menu_compass" 
-                android:contentDescription="Scorpion"/>
-
-            <ImageView
-                android:id="@+id/scorpionMirror"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/scorpionReal"
-                android:layout_centerHorizontal="true"
-                android:rotationX="180"
-                android:alpha="0.3"
-                android:src="@android:drawable/ic_menu_compass"/>
-        </RelativeLayout>
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="1"
-            android:alignmentMode="alignMargins">
-
-            <androidx.cardview.widget.CardView
+                android:id="@+id/scorpionTop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="8dp"
-                android:layout_margin="8dp"
-                app:cardBackgroundColor="#1A1A1A">
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    
-                    <TextView android:text="ترجمة نصية" android:textColor="#FFFFFF" android:textStyle="bold" android:layout_gravity="center"/>
-                    
-                    <Spinner android:id="@+id/langSelector" android:layout_width="200dp" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_margin="10dp"/>
-
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="120dp" android:background="#262626" android:padding="8dp">
-                        <EditText android:id="@+id/editInput" android:layout_width="match_parent" android:layout_height="match_parent" android:hint="اكتب أو تحدث..." android:textColor="#FFFFFF" android:background="@null" android:gravity="top"/>
-                        <ImageButton android:id="@+id/micInput" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_btn_speak_now" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:background="@null"/>
-                    </RelativeLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="2dp" android:background="#1A73E8" android:layout_marginVertical="10dp"/>
-
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="120dp" android:background="#262626" android:padding="8dp">
-                        <TextView android:id="@+id/textOutput" android:layout_width="match_parent" android:layout_height="match_parent" android:textColor="#1A73E8" android:text="الترجمة تظهر هنا..."/>
-                        
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentRight="true">
-                            <ImageButton android:id="@+id/btnCopy" android:layout_width="35dp" android:layout_height="35dp" android:src="@android:drawable/ic_menu_edit" android:background="@null"/>
-                            <ImageButton android:id="@+id/btnShareVoice" android:layout_width="35dp" android:layout_height="35dp" android:src="@android:drawable/ic_menu_share" android:background="@null" android:layout_marginHorizontal="8dp"/>
-                            <ImageButton android:id="@+id/btnSpeakOutput" android:layout_width="35dp" android:layout_height="35dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:background="@null"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            </GridLayout>
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_compass"
+                app:tint="#FFFFFF"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/scorpionTop"
+                android:rotationX="180"
+                android:alpha="0.2"
+                android:src="@android:drawable/ic_menu_compass"
+                app:tint="#FFFFFF"/>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="المطور: TetoCollctionWay"
-            android:layout_gravity="center"
-            android:textColor="#555555"
-            android:layout_marginTop="20dp"/>
-
+            android:text="MIRROR ULTIMATE"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"/>
     </LinearLayout>
-</ScrollView>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerArea"
+        android:columnCount="2"
+        android:padding="10dp"
+        android:alignmentMode="alignMargins">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#33FFFFFF">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_sort_alphabetically" app:tint="#FFFFFF"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الترجمة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#33FFFFFF">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_camera" app:tint="#FFFFFF"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="العدسة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+</RelativeLayout>
