@@ -1,38 +1,57 @@
 package org.tetocollctionway.mirror
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfReader
+import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor
 
 class DocumentTranslateActivity : AppCompatActivity() {
 
-    private lateinit var layoutPdf: LinearLayout
-    private lateinit var layoutLens: LinearLayout
+    private lateinit var tvResult: TextView
+    private val PICK_PDF_CODE = 105
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document_translate)
 
-        layoutPdf = findViewById(R.id.layoutPdf)
-        layoutLens = findViewById(R.id.layoutLens)
-        val btnPdf = findViewById<Button>(R.id.btnTabPdf)
-        val btnLens = findViewById<Button>(R.id.btnTabLens)
+        val btnPick = findViewById<Button>(R.id.btnPickFile)
+        tvResult = findViewById(R.id.tvLensResult) // سنستخدم هذا المربع لعرض النص
 
-        btnPdf.setOnClickListener {
-            layoutPdf.visibility = View.VISIBLE
-            layoutLens.visibility = View.GONE
-            btnPdf.backgroundTintList = getColorStateList(R.color.teal_200) // سنستخدم اللون الأساسي للتطبيق
-            btnLens.backgroundTintList = getColorStateList(android.R.color.darker_gray)
+        btnPick.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "application/pdf"
+            startActivityForResult(intent, PICK_PDF_CODE)
         }
+    }
 
-        btnLens.setOnClickListener {
-            layoutPdf.visibility = View.GONE
-            layoutLens.visibility = View.VISIBLE
-            btnLens.backgroundTintList = getColorStateList(R.color.teal_200)
-            btnPdf.backgroundTintList = getColorStateList(android.R.color.darker_gray)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_PDF_CODE && resultCode == Activity.RESULT_OK) {
+            data?.data?.let { uri ->
+                extractTextFromPdf(uri)
+            }
         }
-        
-        // سيتم ربط محرك iText ومحرك الكاميرا في الخطوة القادمة بعد نجاح البناء
+    }
+
+    private fun extractTextFromPdf(uri: Uri) {
+        try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val reader = PdfReader(inputStream)
+            val pdfDoc = PdfDocument(reader)
+            val n = pdfDoc.numberOfPages
+            var extractedText = ""
+            for (i in 1..n) {
+                extractedText += PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))
+            }
+            tvResult.text = if (extractedText.isEmpty()) "المستند فارغ أو محمي" else extractedText
+            pdfDoc.close()
+        } catch (e: Exception) {
+            tvResult.text = "خطأ في قراءة الملف: ${e.message}"
+        }
     }
 }
