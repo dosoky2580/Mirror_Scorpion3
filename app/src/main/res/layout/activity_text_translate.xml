@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mirror Translate"
+        android:textColor="#03DAC5"
+        android:textSize="22sp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+
+    <EditText
+        android:id="@+id/etSourceText"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#1E1E1E"
+        android:gravity="top"
+        android:hint="اكتب النص هنا..."
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888"
+        android:padding="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginVertical="15dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EN"
+            android:textColor="#03DAC5"
+            android:textStyle="bold" />
+            
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:layout_horizontalMargin="20dp"
+            android:rotation="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AR"
+            android:textColor="#03DAC5"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnTranslateNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ترجم الآن"
+        android:backgroundTint="#6200EE" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:background="#1E1E1E"
+        android:padding="12dp">
+        <TextView
+            android:id="@+id/tvTranslatedResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:text="الترجمة ستظهر هنا..." />
+    </ScrollView>
+
+</LinearLayout>

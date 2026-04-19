@@ -25,5 +25,6 @@
         <activity android:name=".LanguageDownloadActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
         <activity android:name=".DocumentTranslateActivity" android:exported="false" />
+        <activity android:name=".TextTranslateActivity" android:exported="false" />
     </application>
 </manifest>
