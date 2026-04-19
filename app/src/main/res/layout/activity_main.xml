@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent" android:background="#E3F2FD">
-    <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:columnCount="2" android:padding="16dp">
-        <Button android:id="@+id/btnTextTranslation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/text_translation" android:layout_margin="8dp"/>
-        <Button android:id="@+id/btnConversation" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/conversation" android:layout_margin="8dp"/>
-        <Button android:id="@+id/btnLens" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/lens" android:layout_margin="8dp"/>
-        <Button android:id="@+id/btnStories" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/stories" android:layout_margin="8dp"/>
-        <Button android:id="@+id/btnGames" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/games" android:layout_margin="8dp"/>
-        <Button android:id="@+id/btnSettings" android:layout_width="0dp" android:layout_height="140dp" android:layout_columnWeight="1" android:text="@string/settings" android:layout_margin="8dp"/>
-    </GridLayout>
-</ScrollView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mirror Scorpion - الترجمة"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="#333333"
+        android:layout_marginBottom="20dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+            <EditText
+                android:id="@+id/inputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="اكتب النص هنا..."
+                android:background="@null"/>
+            <Button
+                android:id="@+id/btnTranslate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ترجم"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="وضع الحوار بين طرفين قيد التجهيز..."
+            android:gravity="center"
+            android:textColor="#888888"/>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
