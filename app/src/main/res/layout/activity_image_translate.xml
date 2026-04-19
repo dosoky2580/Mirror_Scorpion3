@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/imgHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mirror Scorpion Lens"
+        android:textColor="#03DAC5"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgSelected"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/imgHeader"
+        android:layout_marginTop="20dp"
+        android:background="#1E1E1E"
+        android:scaleType="centerInside"
+        android:contentDescription="صورة المعالجة" />
+
+    <Button
+        android:id="@+id/btnSelectImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgSelected"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="اختر صورة"
+        android:backgroundTint="#6200EE" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnSelectImg"
+        android:layout_above="@+id/btnProcessImg"
+        android:layout_marginTop="10dp"
+        android:background="#1E1E1E"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/txtImgResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnProcessImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="سحب وترجمة النص"
+        android:visibility="gone"
+        android:backgroundTint="#03DAC5" />
+
+</RelativeLayout>
