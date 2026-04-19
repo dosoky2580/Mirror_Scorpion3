@@ -3,12 +3,15 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@android:mipmap/sym_def_app_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="Mirror Scorpion"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MirrorScorpion">
         
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
@@ -16,11 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <activity android:name=".SettingsActivity" android:exported="false" />
         <activity android:name=".VoiceCloneActivity" android:exported="false" />
         <activity android:name=".LanguageDownloadActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
-        <activity android:name=".DocumentTranslateActivity" android:exported="false" />
     </application>
 </manifest>
