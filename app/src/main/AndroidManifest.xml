@@ -27,5 +27,6 @@
         <activity android:name=".AboutActivity" android:exported="false" />
         <activity android:name=".DocumentTranslateActivity" android:exported="false" />
         <activity android:name=".TextTranslateActivity" android:exported="false" />
+        <activity android:name=".ChatTranslateActivity" android:exported="false" android:screenOrientation="portrait" />
     </application>
 </manifest>
