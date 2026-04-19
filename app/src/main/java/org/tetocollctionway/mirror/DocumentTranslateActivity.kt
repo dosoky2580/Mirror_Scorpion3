@@ -26,13 +26,18 @@ class DocumentTranslateActivity : AppCompatActivity() {
             intent.type = "application/pdf"
             startActivityForResult(intent, 100)
         }
+
+        btnTranslateDoc.setOnClickListener {
+            Toast.makeText(this, "بدأت عملية الترجمة لـ 5 صفحات (النسخة المجانية)...", Toast.LENGTH_LONG).show()
+            // في الخطوة القادمة سنضيف منطق الـ PDF المترجم
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
-                edtUrlOrPath.setText(uri.toString())
+                edtUrlOrPath.setText("ملف محلي: " + uri.lastPathSegment)
                 btnTranslateDoc.visibility = View.VISIBLE
             }
         }
