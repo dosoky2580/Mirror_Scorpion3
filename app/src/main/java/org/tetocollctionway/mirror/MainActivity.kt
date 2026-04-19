@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         "التركية" to TranslateLanguage.TURKISH,
         "الإنجليزية" to TranslateLanguage.ENGLISH,
         "الفرنسية" to TranslateLanguage.FRENCH,
-        "الألمانية" to TranslateLanguage.GERMAN,
-        "الإسبانية" to TranslateLanguage.SPANISH
-        // ... الـ 100 لغة كاملة في الـ Spinner
+        "الألمانية" to TranslateLanguage.GERMAN
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,43 +31,53 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         tts = TextToSpeech(this, this)
 
+        val inputText = findViewById<EditText>(R.id.inputText)
         val outputText = findViewById<TextView>(R.id.outputText)
+        val btnTranslate = findViewById<Button>(R.id.btnTranslate)
+        val btnSpeak = findViewById<ImageButton>(R.id.btnSpeak)
         val micUser = findViewById<ImageButton>(R.id.micUser)
         val micOther = findViewById<ImageButton>(R.id.micOther)
         val sourceSpinner = findViewById<Spinner>(R.id.sourceLanguageSpinner)
         val targetSpinner = findViewById<Spinner>(R.id.targetLanguageSpinner)
+        val voiceSpinner = findViewById<Spinner>(R.id.voiceSpinner)
 
-        // تفعيل ميكروفون المستخدم (اللغة الأولى)
-        micUser.setOnClickListener {
-            startVoiceInput(sourceSpinner.selectedItem.toString())
-        }
+        val langList = languageMap.keys.toList()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, langList)
+        sourceSpinner.adapter = adapter
+        targetSpinner.adapter = adapter
 
-        // تفعيل ميكروفون الطرف الآخر (اللغة الثانية)
-        micOther.setOnClickListener {
-            startVoiceInput(targetSpinner.selectedItem.toString())
+        val voices = listOf("سيف", "سلمى", "سما", "سارة", "صوتك")
+        voiceSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, voices)
+
+        btnTranslate.setOnClickListener { translate(inputText.text.toString(), outputText) }
+        btnSpeak.setOnClickListener { speak(outputText.text.toString()) }
+        
+        micUser.setOnClickListener { startVoiceInput() }
+        micOther.setOnClickListener { startVoiceInput() }
+    }
+
+    private fun translate(text: String, output: TextView) {
+        if (text.isEmpty()) return
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.ARABIC)
+            .setTargetLanguage(TranslateLanguage.TURKISH)
+            .build()
+        val translator = Translation.getClient(options)
+        translator.downloadModelIfNeeded().addOnSuccessListener {
+            translator.translate(text).addOnSuccessListener { output.text = it }
         }
     }
 
-    private fun startVoiceInput(langName: String) {
+    private fun startVoiceInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar") // سنضبطها ديناميكياً لاحقاً
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH)
-        } catch (e: Exception) {
-            Toast.makeText(this, "جهازك لا يدعم التعرف على الصوت", Toast.LENGTH_SHORT).show()
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        try { startActivityForResult(intent, REQ_CODE_SPEECH) } catch (e: Exception) {}
     }
 
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            tts.language = Locale("ar")
-            isTtsReady = true
-        }
+    private fun speak(text: String) {
+        if (isTtsReady && text.isNotEmpty()) tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
-    override fun onDestroy() {
-        if (::tts.isInitialized) { tts.stop(); tts.shutdown() }
-        super.onDestroy()
-    }
+    override fun onInit(status: Int) { if (status == TextToSpeech.SUCCESS) isTtsReady = true }
 }
