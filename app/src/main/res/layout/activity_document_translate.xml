@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#121212">
+    android:background="#121212"
+    android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ترجمة المستندات (Scorpion PDF)"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"/>
-
-    <Button
-        android:id="@+id/btnBrowse"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="اختر ملف PDF"
-        android:backgroundTint="#6200EE"/>
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/txtFileName"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mirror Scorpion PDF"
+            android:textColor="#03DAC5"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnBrowse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="اسحب ملف"
+            android:backgroundTint="#6200EE" />
+
+        <TextView
+            android:id="@+id/txtFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="جاهز للسحب"
+            android:textColor="#BBBBBB"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#BBBBBB"
-        android:text="لم يتم اختيار ملف"
-        android:layout_marginTop="10dp"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_above="@+id/btnTranslateDoc"
+        android:layout_marginTop="20dp"
+        android:background="#1E1E1E"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtFinalResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:lineSpacingExtra="8dp"
+            android:text="النص المترجم سيظهر هنا..." />
+    </ScrollView>
 
     <Button
         android:id="@+id/btnTranslateDoc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ابدأ الترجمة الفورية"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentBottom="true"
+        android:text="ابدأ سحب وترجمة الورقة"
         android:visibility="gone"
-        android:backgroundTint="#03DAC5"/>
+        android:backgroundTint="#03DAC5" />
 
-</LinearLayout>
+</RelativeLayout>

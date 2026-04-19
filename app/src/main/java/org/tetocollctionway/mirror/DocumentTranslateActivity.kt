@@ -20,6 +20,7 @@ import java.io.InputStream
 class DocumentTranslateActivity : AppCompatActivity() {
 
     private lateinit var txtFileName: TextView
+    private lateinit var txtFinalResult: TextView
     private lateinit var btnTranslate: Button
     private var selectedFileUri: Uri? = null
 
@@ -28,23 +29,26 @@ class DocumentTranslateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_document_translate)
 
         txtFileName = findViewById(R.id.txtFileName)
+        txtFinalResult = findViewById(R.id.txtFinalResult)
         btnTranslate = findViewById(R.id.btnTranslateDoc)
 
         findViewById<Button>(R.id.btnBrowse).setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "application/pdf"
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            startActivityForResult(Intent.createChooser(intent, "اختر ملف PDF"), 1001)
+            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                type = "application/pdf"
+                addCategory(Intent.CATEGORY_OPENABLE)
+            }
+            startActivityForResult(Intent.createChooser(intent, "اختر ملف"), 1001)
         }
 
         btnTranslate.setOnClickListener {
-            if (selectedFileUri != null) {
-                processPdf(selectedFileUri!!)
+            selectedFileUri?.let { uri ->
+                txtFinalResult.text = "جاري سحب الورقة..."
+                processAndTranslate(uri)
             }
         }
     }
 
-    private fun processPdf(uri: Uri) {
+    private fun processAndTranslate(uri: Uri) {
         try {
             val iStream: InputStream? = contentResolver.openInputStream(uri)
             if (iStream != null) {
@@ -59,10 +63,12 @@ class DocumentTranslateActivity : AppCompatActivity() {
                 
                 if (rawText.isNotEmpty()) {
                     translateText(rawText)
+                } else {
+                    txtFinalResult.text = "المستند فارغ"
                 }
             }
         } catch (e: Exception) {
-            Toast.makeText(this, "Error in Processing", Toast.LENGTH_SHORT).show()
+            txtFinalResult.text = "خطأ في قراءة الورقة"
         }
     }
 
@@ -77,8 +83,14 @@ class DocumentTranslateActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 translator.translate(text)
                     .addOnSuccessListener { translated ->
-                        Toast.makeText(this, "Done", Toast.LENGTH_LONG).show()
+                        txtFinalResult.text = translated
                     }
+                    .addOnFailureListener {
+                        txtFinalResult.text = "فشلت الترجمة"
+                    }
+            }
+            .addOnFailureListener {
+                txtFinalResult.text = "جاري تحميل محرك الترجمة..."
             }
     }
 
@@ -86,7 +98,7 @@ class DocumentTranslateActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             selectedFileUri = data?.data
-            txtFileName.text = "Ready"
+            txtFileName.text = "تم التقاط الورقة"
             btnTranslate.visibility = View.VISIBLE
         }
     }
