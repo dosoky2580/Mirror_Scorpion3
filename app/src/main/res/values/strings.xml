@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Mirror Scorpion</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="clone_voice">نسخ صوت المستخدم</string>
+    <string name="activate_pro">تفعيل النسخة المدفوعة</string>
+    <string name="download_langs">تنزيل اللغات</string>
+    <string name="dark_mode">الوضع المظلم</string>
+    <string name="about_app">نبذة عن التطبيق</string>
+    <string name="developer_info">المطور: tetocollctionway</string>
+    
+    <string name="voice_record_prompt">يرجى قراءة النص التالي بوضوح لمدة 30 ثانية لضبط بصمة صوتك بدقة...</string>
+</resources>
