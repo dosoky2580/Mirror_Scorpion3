@@ -1,8 +1,8 @@
 package org.tetocollctionway.mirror
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
@@ -11,7 +11,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         findViewById<Button>(R.id.btnVoiceClone).setOnClickListener {
-            Toast.makeText(this, "قريباً: شاشة تسجيل الـ 30 ثانية", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, VoiceCloneActivity::class.java))
         }
     }
 }
