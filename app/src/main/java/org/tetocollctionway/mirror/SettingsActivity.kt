@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnAbout).setOnClickListener {
-            Toast.makeText(this, "Mirror Scorpion v1.0\nالمطور: tetocollctionway", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, AboutActivity::class.java))
         }
     }
 }
