@@ -28,54 +28,43 @@ class DocumentTranslateActivity : AppCompatActivity() {
         btnTranslate = findViewById(R.id.btnTranslateDoc)
 
         findViewById<Button>(R.id.btnBrowse).setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "application/pdf"
-                addCategory(Intent.CATEGORY_OPENABLE)
-            }
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "application/pdf"
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(Intent.createChooser(intent, "اختر ملف PDF"), 1001)
         }
 
         btnTranslate.setOnClickListener {
-            selectedFileUri?.let { uri ->
-                processAndTranslate(uri)
+            if (selectedFileUri != null) {
+                processPdf(selectedFileUri!!)
             }
         }
     }
 
-    private fun processAndTranslate(uri: Uri) {
+    private fun processPdf(uri: Uri) {
         try {
-            val inputStream: InputStream? = contentResolver.openInputStream(uri)
-            if (inputStream != null) {
-                val pdfReader = PdfReader(inputStream)
-                val pdfDoc = PdfDocument(pdfReader)
-                val numberOfPages = pdfDoc.numberOfPages
-                
-                val pagesToProcess = if (numberOfPages > 5) 5 else numberOfPages
-                var extractedText = ""
-
-                for (i in 1..pagesToProcess) {
-                    extractedText += PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))
+            val iStream: InputStream? = contentResolver.openInputStream(uri)
+            if (iStream != null) {
+                val reader = PdfReader(iStream)
+                val pdf = PdfDocument(reader)
+                val pages = if (pdf.numberOfPages > 5) 5 else pdf.numberOfPages
+                var resultText = ""
+                for (i in 1..pages) {
+                    resultText += PdfTextExtractor.getTextFromPage(pdf.getPage(i))
                 }
-
-                pdfDoc.close()
-                
-                if (extractedText.isNotEmpty()) {
-                    Toast.makeText(this, "تم استخراج النص بنجاح", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "المستند فارغ", Toast.LENGTH_SHORT).show()
-                }
+                pdf.close()
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
-            // شيلنا علامة الدولار تماماً لضمان سلامة الكتابة عبر التيرمينال
-            Toast.makeText(this, "حدث خطأ أثناء معالجة الملف", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode: Int, resultCode: Int, data)
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             selectedFileUri = data?.data
-            txtFileName.text = "تم التقاط الملف بنجاح"
+            txtFileName.text = "Selected"
             btnTranslate.visibility = View.VISIBLE
         }
     }
