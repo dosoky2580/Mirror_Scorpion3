@@ -1,6 +1,7 @@
 package org.tetocollctionway.mirror
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -28,12 +29,28 @@ class TextTranslateActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var tts: TextToSpeech? = null
     private val SPEECH_REQUEST_CODE = 102
     private var isTranslationDone = false
+    private var selectedTargetLang = TranslateLanguage.ARABIC
+    private var selectedLangCode = "ar"
+
+    // قائمة اللغات (عينة من الـ 100 لغة لضمان استقرار البناء)
+    private val languagesMap = mapOf(
+        "العربية" to Pair(TranslateLanguage.ARABIC, "ar"),
+        "الإنجليزية" to Pair(TranslateLanguage.ENGLISH, "en"),
+        "التركية" to Pair(TranslateLanguage.TURKISH, "tr"),
+        "الفرنسية" to Pair(TranslateLanguage.FRENCH, "fr"),
+        "الألمانية" to Pair(TranslateLanguage.GERMAN, "de"),
+        "الإسبانية" to Pair(TranslateLanguage.SPANISH, "es"),
+        "الإيطالية" to Pair(TranslateLanguage.ITALIAN, "it"),
+        "الصينية" to Pair(TranslateLanguage.CHINESE, "zh"),
+        "اليابانية" to Pair(TranslateLanguage.JAPANESE, "ja"),
+        "الروسية" to Pair(TranslateLanguage.RUSSIAN, "ru")
+        // سيتم توسيعها لـ 100 لغة في التحديث القادم
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_translate)
 
-        // ربط التروس
         etSource = findViewById(R.id.etSource)
         tvTarget = findViewById(R.id.tvTarget)
         btnMic = findViewById(R.id.btnMic)
@@ -44,23 +61,11 @@ class TextTranslateActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         tts = TextToSpeech(this, this)
 
-        // 1. منطق المايك (الالتقاط + المسح التلقائي)
-        btnMic.setOnClickListener {
-            startSpeechToText()
-        }
-
-        // 2. منطق الكيبورد (المسح عند البدء الجديد)
+        btnSelectLanguage.setOnClickListener { showLanguageSelector() }
+        btnMic.setOnClickListener { startSpeechToText() }
+        
         etSource.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && isTranslationDone) {
-                clearFields()
-            }
-        }
-
-        // 3. زر الترجمة (تفعيل المحرك)
-        // سنستخدم ترجمة فورية عند تغيير النص لسرعة الـ 3 ثواني
-        btnSelectLanguage.setOnClickListener {
-            // هنا سيتم فتح قائمة الـ 100 لغة لاحقاً، حالياً سنثبت EN -> AR للتجربة
-            Toast.makeText(this, "قائمة الـ 100 لغة جاهزة للربط", Toast.LENGTH_SHORT).show()
+            if (hasFocus && isTranslationDone) clearFields()
         }
 
         btnSpeaker.setOnClickListener { speakText() }
@@ -68,11 +73,42 @@ class TextTranslateActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         btnShare.setOnClickListener { shareAudioStamp() }
     }
 
+    private fun showLanguageSelector() {
+        val langs = languagesMap.keys.toTypedArray()
+        AlertDialog.Builder(this)
+            .setTitle("اختر لغة الترجمة")
+            .setItems(langs) { _, which ->
+                val selectedName = langs[which]
+                selectedTargetLang = languagesMap[selectedName]?.first ?: TranslateLanguage.ARABIC
+                selectedLangCode = languagesMap[selectedName]?.second ?: "ar"
+                btnSelectLanguage.text = "مترجم إلى: $selectedName"
+                tts?.language = Locale(selectedLangCode)
+            }
+            .show()
+    }
+
+    private fun executeTranslation(text: String) {
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.ENGLISH) 
+            .setTargetLanguage(selectedTargetLang)
+            .build()
+        val translator = Translation.getClient(options)
+
+        tvTarget.text = "جاري الترجمة..."
+        translator.downloadModelIfNeeded()
+            .addOnSuccessListener {
+                translator.translate(text).addOnSuccessListener { result ->
+                    tvTarget.text = result
+                    isTranslationDone = true
+                }
+            }
+            .addOnFailureListener { tvTarget.text = "فشل في تحميل حزمة اللغة" }
+    }
+
     private fun startSpeechToText() {
         clearFields()
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         }
         startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
@@ -84,23 +120,6 @@ class TextTranslateActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             etSource.setText(spokenText)
             executeTranslation(spokenText)
         }
-    }
-
-    private fun executeTranslation(text: String) {
-        val options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.ENGLISH)
-            .setTargetLanguage(TranslateLanguage.ARABIC)
-            .build()
-        val translator = Translation.getClient(options)
-
-        translator.downloadModelIfNeeded()
-            .addOnSuccessListener {
-                translator.translate(text)
-                    .addOnSuccessListener { result ->
-                        tvTarget.text = result
-                        isTranslationDone = true
-                    }
-            }
     }
 
     private fun speakText() {
@@ -128,6 +147,6 @@ class TextTranslateActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         isTranslationDone = false
     }
 
-    override fun onInit(status: Int) { if (status == TextToSpeech.SUCCESS) tts?.language = Locale("ar") }
+    override fun onInit(status: Int) { if (status == TextToSpeech.SUCCESS) tts?.language = Locale(selectedLangCode) }
     override fun onDestroy() { tts?.stop(); tts?.shutdown(); super.onDestroy() }
 }
