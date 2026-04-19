@@ -24,5 +24,6 @@
         <activity android:name=".VoiceCloneActivity" android:exported="false" />
         <activity android:name=".LanguageDownloadActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
+        <activity android:name=".DocumentTranslateActivity" android:exported="false" />
     </application>
 </manifest>
