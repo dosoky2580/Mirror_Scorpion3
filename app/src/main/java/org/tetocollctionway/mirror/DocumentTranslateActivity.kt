@@ -62,12 +62,12 @@ class DocumentTranslateActivity : AppCompatActivity() {
                 if (extractedText.isNotEmpty()) {
                     Toast.makeText(this, "تم استخراج النص بنجاح", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "المستند فارغ أو محمي", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "المستند فارغ", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: Exception) {
-            // لاحظ استخدام الباك سلاش هنا للهروب من فهم التيرمينال
-            Toast.makeText(this, "خطأ في المعالجة: ${e.message}", Toast.LENGTH_LONG).show()
+            // شيلنا علامة الدولار تماماً لضمان سلامة الكتابة عبر التيرمينال
+            Toast.makeText(this, "حدث خطأ أثناء معالجة الملف", Toast.LENGTH_LONG).show()
         }
     }
 
