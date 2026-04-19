@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="100 لغة - اختر لغتك"
+        android:text="إنجليزي -> عربي"
         android:backgroundTint="#03DAC5"
         android:textColor="#000000"
         android:layout_marginBottom="16dp"/>
@@ -22,35 +22,25 @@
         android:layout_weight="1"
         android:background="#1E1E1E"
         android:padding="12dp">
-
         <EditText
             android:id="@+id/etSource"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="اكتب هنا أو استخدم المايك..."
+            android:hint="اكتب أو استخدم المايك..."
             android:textColor="#FFFFFF"
-            android:textColorHint="#888888"
             android:gravity="top"
-            android:background="@null"
-            android:textSize="18sp"/>
-
+            android:background="@null"/>
         <ImageButton
             android:id="@+id/btnMic"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:src="@android:drawable/ic_btn_speak_now"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="مايك التقاط الكلام" />
+            android:background="?attr/selectableItemBackgroundBorderless"/>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="#333333"/>
+    <View android:layout_width="match_parent" android:layout_height="2dp" android:layout_marginVertical="12dp" android:background="#333333"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,45 +48,20 @@
         android:layout_weight="1"
         android:background="#1E1E1E"
         android:padding="12dp">
-
         <TextView
             android:id="@+id/tvTarget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#03DAC5"
-            android:textSize="18sp"
             android:text="الترجمة ستظهر هنا..."/>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnCopy"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="نسخ النص" />
-
-            <ImageButton
-                android:id="@+id/btnShare"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@android:drawable/ic_menu_share"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="مشاركة الصوت" />
-
-            <ImageButton
-                android:id="@+id/btnSpeaker"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@android:drawable/ic_lock_silent_mode_off"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="نطق الترجمة" />
+            android:layout_alignParentRight="true">
+            <ImageButton android:id="@+id/btnCopy" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_edit" android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton android:id="@+id/btnShare" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_share" android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton android:id="@+id/btnSpeaker" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:background="?attr/selectableItemBackgroundBorderless"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
