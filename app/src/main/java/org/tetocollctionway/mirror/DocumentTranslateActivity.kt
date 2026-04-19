@@ -39,12 +39,12 @@ class DocumentTranslateActivity : AppCompatActivity() {
 
         btnTranslate.setOnClickListener {
             if (selectedFileUri != null) {
-                processAndTranslate(selectedFileUri!!)
+                processPdf(selectedFileUri!!)
             }
         }
     }
 
-    private fun processAndTranslate(uri: Uri) {
+    private fun processPdf(uri: Uri) {
         try {
             val iStream: InputStream? = contentResolver.openInputStream(uri)
             if (iStream != null) {
@@ -58,8 +58,7 @@ class DocumentTranslateActivity : AppCompatActivity() {
                 pdf.close()
                 
                 if (rawText.isNotEmpty()) {
-                    // هنا بنستخدم ML Kit المدمج للترجمة
-                    translateExtractedText(rawText)
+                    translateText(rawText)
                 }
             }
         } catch (e: Exception) {
@@ -67,7 +66,7 @@ class DocumentTranslateActivity : AppCompatActivity() {
         }
     }
 
-    private fun translateExtractedText(text: String) {
+    private fun translateText(text: String) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(TranslateLanguage.ARABIC)
@@ -77,18 +76,17 @@ class DocumentTranslateActivity : AppCompatActivity() {
         translator.downloadModelIfNeeded()
             .addOnSuccessListener {
                 translator.translate(text)
-                    .addOnSuccessListener { translatedText ->
-                        // سيتم عرض النتيجة هنا
-                        Toast.makeText(this, "تمت الترجمة بنجاح", Toast.LENGTH_LONG).show()
+                    .addOnSuccessListener { translated ->
+                        Toast.makeText(this, "Done", Toast.LENGTH_LONG).show()
                     }
             }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode: Int, resultCode: Int, data)
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             selectedFileUri = data?.data
-            txtFileName.text = "File Selected"
+            txtFileName.text = "Ready"
             btnTranslate.visibility = View.VISIBLE
         }
     }
