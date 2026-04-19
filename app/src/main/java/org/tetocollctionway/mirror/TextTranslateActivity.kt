@@ -8,39 +8,32 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import com.google.mlkit.nl.translate.TranslateLanguage
 
 class TextTranslateActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_translate)
 
-        val etSource = findViewById<EditText>(R.id.etSourceText)
-        val btnTranslate = findViewById<Button>(R.id.btnTranslateNow)
-        val tvResult = findViewById<TextView>(R.id.tvTranslatedResult)
-
+        val etSource = findViewById<EditText>(R.id.etSource)
+        val tvTarget = findViewById<TextView>(R.id.tvTarget)
+        val btnMic = findViewById<ImageButton>(R.id.btnMic)
+        
+        // محرك الترجمة الأساسي
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(TranslateLanguage.ARABIC)
             .build()
         val translator = Translation.getClient(options)
 
-        btnTranslate.setOnClickListener {
+        // تنفيذ الترجمة التلقائية عند الكتابة أو الضغط (سنطورها لاحقاً للمايك)
+        etSource.setOnEditorActionListener { _, _, _ ->
             val text = etSource.text.toString()
             if (text.isNotEmpty()) {
-                tvResult.text = "جاري الترجمة..."
-                translator.downloadModelIfNeeded()
-                    .addOnSuccessListener {
-                        translator.translate(text)
-                            .addOnSuccessListener { translatedText ->
-                                tvResult.text = translatedText
-                            }
-                            .addOnFailureListener {
-                                tvResult.text = "فشلت الترجمة"
-                            }
+                translator.downloadModelIfNeeded().addOnSuccessListener {
+                    translator.translate(text).addOnSuccessListener { result ->
+                        tvTarget.text = result
                     }
-                    .addOnFailureListener {
-                        tvResult.text = "يجب تحميل حزمة اللغة أولاً"
-                    }
+                }
             }
+            true
         }
     }
 }
