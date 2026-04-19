@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
 import java.io.InputStream
 
 class DocumentTranslateActivity : AppCompatActivity() {
@@ -47,29 +45,29 @@ class DocumentTranslateActivity : AppCompatActivity() {
     private fun processAndTranslate(uri: Uri) {
         try {
             val inputStream: InputStream? = contentResolver.openInputStream(uri)
-            val pdfReader = PdfReader(inputStream)
-            val pdfDoc = PdfDocument(pdfReader)
-            val numberOfPages = pdfDoc.numberOfPages
-            
-            // تحديد أول 5 صفحات فقط للنسخة المجانية
-            val pagesToProcess = if (numberOfPages > 5) 5 else numberOfPages
-            var extractedText = ""
+            if (inputStream != null) {
+                val pdfReader = PdfReader(inputStream)
+                val pdfDoc = PdfDocument(pdfReader)
+                val numberOfPages = pdfDoc.numberOfPages
+                
+                val pagesToProcess = if (numberOfPages > 5) 5 else numberOfPages
+                var extractedText = ""
 
-            for (i in 1..pagesToProcess) {
-                extractedText += PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))
+                for (i in 1..pagesToProcess) {
+                    extractedText += PdfTextExtractor.getTextFromPage(pdfDoc.getPage(i))
+                }
+
+                pdfDoc.close()
+                
+                if (extractedText.isNotEmpty()) {
+                    Toast.makeText(this, "تم استخراج النص بنجاح", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "المستند فارغ أو محمي", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            pdfDoc.close()
-            
-            if (extractedText.isNotEmpty()) {
-                Toast.makeText(this, "تم استخراج النص، جاري الترجمة...", Toast.LENGTH_SHORT).show()
-                // هنا سيتم استدعاء ML Kit في الخطوة القادمة لعرض النتيجة
-            } else {
-                Toast.makeText(this, "المستند فارغ أو محمي", Toast.LENGTH_SHORT).show()
-            }
-
         } catch (e: Exception) {
-            Toast.makeText(this, "خطأ في معالجة الملف: ${e.message}", Toast.LENGTH_LONG).show()
+            // لاحظ استخدام الباك سلاش هنا للهروب من فهم التيرمينال
+            Toast.makeText(this, "خطأ في المعالجة: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -77,7 +75,7 @@ class DocumentTranslateActivity : AppCompatActivity() {
         super.onActivityResult(requestCode: Int, resultCode: Int, data)
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             selectedFileUri = data?.data
-            txtFileName.text = "تم التقاط الملف، جاهز للمعالجة"
+            txtFileName.text = "تم التقاط الملف بنجاح"
             btnTranslate.visibility = View.VISIBLE
         }
     }
