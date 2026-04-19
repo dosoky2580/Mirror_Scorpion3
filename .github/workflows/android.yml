@@ -2,9 +2,9 @@ name: Build Mirror Scorpion
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: ./gradlew clean assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
