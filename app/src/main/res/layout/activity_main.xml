@@ -40,7 +40,7 @@
             app:cardCornerRadius="20dp"
             app:cardBackgroundColor="#33FFFFFF">
             <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_sort_alphabetically" app:tint="#FFFFFF"/>
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_edit" app:tint="#FFFFFF"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الترجمة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -68,7 +68,7 @@
             app:cardCornerRadius="20dp"
             app:cardBackgroundColor="#33FFFFFF">
             <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_search" app:tint="#FFFFFF"/>
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_view" app:tint="#FFFFFF"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="مستندات وعدسة" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -82,7 +82,7 @@
             app:cardCornerRadius="20dp"
             app:cardBackgroundColor="#33FFFFFF">
             <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_book" app:tint="#FFFFFF"/>
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_info_details" app:tint="#FFFFFF"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="قصص قرآنية" android:textColor="#FFFFFF" android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
