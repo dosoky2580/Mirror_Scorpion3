@@ -2,7 +2,7 @@ package org.tetocollctionway.mirror
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
+import androidx.cardview.widget.CardView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -10,9 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnSettings = findViewById<ImageButton>(R.id.btnSettings)
-        btnSettings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+        // الربط مع الكارت الجديد بدلاً من الزر القديم
+        val cardSettings = findViewById<CardView>(R.id.cardSettings)
+        cardSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 }
