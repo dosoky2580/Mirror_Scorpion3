@@ -1,50 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#0F2027"
-    android:padding="25dp">
+    android:background="#0F2027">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="إعدادات ميرور"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"/>
-
-    <Button
-        android:id="@+id/btnVoiceClone"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="👤 نسخ صوت المستخدم"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:gravity="start"
-        android:padding="15dp"/>
+        android:orientation="vertical"
+        android:padding="25dp">
 
-    <Button
-        android:id="@+id/btnLangs"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🌐 تنزيل اللغات"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:gravity="start"
-        android:padding="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="إعدادات ميرور"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="35dp"/>
 
-    <Button
-        android:id="@+id/btnPro"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="⭐ تفعيل النسخة المدفوعة"
-        android:textColor="#FFD700"
-        android:textSize="24sp"
-        android:gravity="start"
-        android:padding="15dp"/>
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔊 اختيار الصوت الافتراضي"
+            android:textColor="#4FC3F7"
+            android:textSize="22sp"
+            android:layout_marginBottom="10dp"/>
+            
+        <Spinner
+            android:id="@+id/spinnerVoices"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#1AFFFFFF"
+            android:layout_marginBottom="25dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#33FFFFFF" android:layout_marginBottom="25dp"/>
+
+        <Button
+            android:id="@+id/btnVoiceClone"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 بصمة صوتك (Clone)"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/btnLangs"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌐 تنزيل اللغات (Offline)"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/btnDarkMode"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌙 الوضع المظلم"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/btnAbout"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ℹ️ نبذة عن التطبيق"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/btnPro"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⭐ تفعيل النسخة المدفوعة"
+            android:textColor="#FFD700"
+            android:textSize="24sp"
+            android:gravity="start"
+            android:padding="15dp"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+</ScrollView>
