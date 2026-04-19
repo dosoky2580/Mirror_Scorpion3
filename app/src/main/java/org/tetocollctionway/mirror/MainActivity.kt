@@ -2,6 +2,7 @@ package org.tetocollctionway.mirror
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.Voice
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -13,14 +14,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var tts: TextToSpeech
     private var isTtsReady = false
+    private val voiceList = listOf("سيف (رجل)", "سلمى (بنت)", "سما (بنت)", "سارة (بنت)", "صوتك (نسخة مدفوعة)")
 
     private val languageMap = mapOf(
         "العربية" to TranslateLanguage.ARABIC,
         "التركية" to TranslateLanguage.TURKISH,
-        "الإنجليزية" to TranslateLanguage.ENGLISH,
-        "الألمانية" to TranslateLanguage.GERMAN,
-        "الفرنسية" to TranslateLanguage.FRENCH,
-        "الإيطالية" to TranslateLanguage.ITALIAN
+        "الإنجليزية" to TranslateLanguage.ENGLISH
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,54 +32,56 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val outputText = findViewById<TextView>(R.id.outputText)
         val btnTranslate = findViewById<Button>(R.id.btnTranslate)
         val btnSpeak = findViewById<ImageButton>(R.id.btnSpeak)
-        val sourceSpinner = findViewById<Spinner>(R.id.sourceLanguageSpinner)
-        val targetSpinner = findViewById<Spinner>(R.id.targetLanguageSpinner)
+        val voiceSpinner = findViewById<Spinner>(R.id.voiceSpinner)
 
-        val langList = languageMap.keys.toList()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, langList)
-        sourceSpinner.adapter = adapter
-        targetSpinner.adapter = adapter
+        val voiceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, voiceList)
+        voiceSpinner.adapter = voiceAdapter
 
         btnTranslate.setOnClickListener {
             val text = inputText.text.toString()
-            val sourceLang = languageMap[sourceSpinner.selectedItem.toString()] ?: TranslateLanguage.ENGLISH
-            val targetLang = languageMap[targetSpinner.selectedItem.toString()] ?: TranslateLanguage.TURKISH
-
             if (text.isEmpty()) return@setOnClickListener
-
+            
+            // منطق الترجمة (كما هو في الأساس المستقر)
             val options = TranslatorOptions.Builder()
-                .setSourceLanguage(sourceLang)
-                .setTargetLanguage(targetLang)
+                .setSourceLanguage(TranslateLanguage.ARABIC)
+                .setTargetLanguage(TranslateLanguage.TURKISH)
                 .build()
-
             val translator = Translation.getClient(options)
             translator.downloadModelIfNeeded().addOnSuccessListener {
-                translator.translate(text).addOnSuccessListener { translatedText ->
-                    outputText.text = translatedText
-                }
+                translator.translate(text).addOnSuccessListener { outputText.text = it }
             }
         }
 
         btnSpeak.setOnClickListener {
-            val textToSpeak = outputText.text.toString()
-            if (isTtsReady && textToSpeak.isNotEmpty()) {
-                tts.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, null)
+            val selectedVoice = voiceSpinner.selectedItemPosition
+            if (selectedVoice == 4) {
+                Toast.makeText(this, "هذه الميزة متاحة في النسخة المدفوعة فقط", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            // تخصيص نبرة الصوت (سيف = ذكر، الباقي = إناث)
+            if (selectedVoice == 0) {
+                tts.setPitch(0.8f) // نبرة غليظة لسيف
+            } else {
+                tts.setPitch(1.2f) // نبرة حادة للبنات
+            }
+            
+            val text = outputText.text.toString()
+            if (isTtsReady && text.isNotEmpty()) {
+                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
             }
         }
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            tts.language = Locale.getDefault()
+            tts.language = Locale("ar") // تعيين اللغة العربية كافتراضي للنطق
             isTtsReady = true
         }
     }
 
     override fun onDestroy() {
-        if (::tts.isInitialized) {
-            tts.stop()
-            tts.shutdown()
-        }
+        if (::tts.isInitialized) { tts.stop(); tts.shutdown() }
         super.onDestroy()
     }
 }
