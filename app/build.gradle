@@ -42,4 +42,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.mlkit:translate:17.0.2'
     implementation 'com.itextpdf:itext7-core:7.1.15'
+    
+    // إضافة محرك رؤية النصوص (OCR)
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.0'
 }
