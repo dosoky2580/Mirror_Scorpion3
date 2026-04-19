@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.TranslatorOptions
+import com.google.mlkit.nl.translate.TranslateLanguage
 import java.io.InputStream
 
 class DocumentTranslateActivity : AppCompatActivity() {
@@ -36,35 +39,56 @@ class DocumentTranslateActivity : AppCompatActivity() {
 
         btnTranslate.setOnClickListener {
             if (selectedFileUri != null) {
-                processPdf(selectedFileUri!!)
+                processAndTranslate(selectedFileUri!!)
             }
         }
     }
 
-    private fun processPdf(uri: Uri) {
+    private fun processAndTranslate(uri: Uri) {
         try {
             val iStream: InputStream? = contentResolver.openInputStream(uri)
             if (iStream != null) {
                 val reader = PdfReader(iStream)
                 val pdf = PdfDocument(reader)
                 val pages = if (pdf.numberOfPages > 5) 5 else pdf.numberOfPages
-                var resultText = ""
+                var rawText = ""
                 for (i in 1..pages) {
-                    resultText += PdfTextExtractor.getTextFromPage(pdf.getPage(i))
+                    rawText += PdfTextExtractor.getTextFromPage(pdf.getPage(i))
                 }
                 pdf.close()
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                
+                if (rawText.isNotEmpty()) {
+                    // هنا بنستخدم ML Kit المدمج للترجمة
+                    translateExtractedText(rawText)
+                }
             }
         } catch (e: Exception) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error in Processing", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun translateExtractedText(text: String) {
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.ENGLISH)
+            .setTargetLanguage(TranslateLanguage.ARABIC)
+            .build()
+        val translator = Translation.getClient(options)
+        
+        translator.downloadModelIfNeeded()
+            .addOnSuccessListener {
+                translator.translate(text)
+                    .addOnSuccessListener { translatedText ->
+                        // سيتم عرض النتيجة هنا
+                        Toast.makeText(this, "تمت الترجمة بنجاح", Toast.LENGTH_LONG).show()
+                    }
+            }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode: Int, resultCode: Int, data)
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             selectedFileUri = data?.data
-            txtFileName.text = "Selected"
+            txtFileName.text = "File Selected"
             btnTranslate.visibility = View.VISIBLE
         }
     }
