@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DialogTranslatorActivity::class.java)
             startActivity(intent)
         findViewById<View>(R.id.card_lens_docs).setOnClickListener { }
+            val intent = Intent(this, LensDocsActivity::class.java)
+            startActivity(intent)
         findViewById<View>(R.id.card_stories).setOnClickListener { }
         findViewById<View>(R.id.card_games).setOnClickListener { }
         findViewById<View>(R.id.card_settings).setOnClickListener { }
