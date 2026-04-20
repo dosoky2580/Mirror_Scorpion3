@@ -1,30 +1,50 @@
 package org.tetocollctionway.mirror
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import android.view.View
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // ربط كارت الترجمة النصية (الكارت الأول)
-        findViewById<CardView>(R.id.cardTextTranslate).setOnClickListener {
-            startActivity(Intent(this, TextTranslateActivity::class.java))
-        }
+        // ربط الكروت بالأسماء الصحيحة الموجودة في ملف الـ XML
         
-        // ربط كارت حوار مترجم (الكارت الثاني)
-        findViewById<CardView>(R.id.cardChatTranslate).setOnClickListener {
-            startActivity(Intent(this, ChatTranslateActivity::class.java))
+        // 1. كارت الترجمة النصية
+        findViewById<View>(R.id.card_text_trans).setOnClickListener {
+            showToast("جاري تشغيل محرك الترجمة النصية...")
         }
 
-        // ربط كارت مستندات وعدسة (الكارت الثالث)
-        findViewById<CardView>(R.id.cardDocLens).setOnClickListener {
-            startActivity(Intent(this, DocumentTranslateActivity::class.java))
+        // 2. كارت حوار مترجم
+        findViewById<View>(R.id.card_dialog_trans).setOnClickListener {
+            showToast("جاري تحضير الحوار المزدوج...")
         }
 
-        // باقي الكروت (الإعدادات، القصص، الألعاب) سيتم ربطها عند برمجة شاشاتها
+        // 3. كارت العدسة والمستندات
+        findViewById<View>(R.id.card_lens_docs).setOnClickListener {
+            showToast("فتح العدسة والمستندات...")
+        }
+
+        // 4. كارت القصص والإلهام
+        findViewById<View>(R.id.card_stories).setOnClickListener {
+            showToast("ركن القصص وروح التطبيق...")
+        }
+
+        // 5. كارت الألعاب
+        findViewById<View>(R.id.card_games).setOnClickListener {
+            showToast("منطقة ألعاب الذكاء 3D...")
+        }
+
+        // 6. كارت الإعدادات
+        findViewById<View>(R.id.card_settings).setOnClickListener {
+            showToast("فتح الإعدادات والترقية...")
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
