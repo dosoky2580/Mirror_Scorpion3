@@ -11,45 +11,63 @@ import java.util.*
 class DialogTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var tts: TextToSpeech
-    private var langTopCode = "en"    // لغة الطرف الآخر
-    private var langBottomCode = "ar" // لغتك أنت
-    private val REQ_CODE_TOP = 101
-    private val REQ_CODE_BOTTOM = 102
+    private lateinit var btnLangRight: Button
+    private lateinit var btnLangLeft: Button
+    private lateinit var tvInputUpper: TextView
+    private lateinit var tvOutputLower: TextView
+    
+    private var langRightCode = "en"
+    private var langLeftCode = "ar"
+    private val REQ_CODE_RIGHT = 101
+    private val REQ_CODE_LEFT = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog_translator)
 
-        val btnMicTop = findViewById<ImageButton>(R.id.btn_mic_top)
-        val btnMicBottom = findViewById<ImageButton>(R.id.btn_mic_bottom)
-        val btnLangTop = findViewById<Button>(R.id.btn_lang_top)
-        val btnLangBottom = findViewById<Button>(R.id.btn_lang_bottom)
+        btnLangRight = findViewById(R.id.btn_lang_top) // سنعتبره الزر اليمين برمجياً
+        btnLangLeft = findViewById(R.id.btn_lang_bottom) // الزر اليسار
+        tvInputUpper = findViewById(R.id.et_input_text) // المحرر العلوي
+        tvOutputLower = findViewById(R.id.tv_translated_text) // المحرر السفلي
+        
+        val btnMic = findViewById<ImageButton>(R.id.btn_mic_bottom)
+        val btnSwap = findViewById<ImageButton>(R.id.btn_mic_top) // سنستخدمه حالياً كزر تبديل
 
         tts = TextToSpeech(this, this)
 
-        // إعداد لغات الأزرار
-        btnLangTop.text = "الطرف الآخر: English"
-        btnLangBottom.text = "أنا: العربية"
+        updateButtonLabels()
 
-        // مايك الطرف الآخر (يترجم من لغته إلى لغتك)
-        btnMicTop.setOnClickListener {
-            startVoiceCapture(langTopCode, REQ_CODE_TOP)
+        // زر التبديل: يبدل الأكواد والأسماء بين اليمين واليسار
+        btnSwap.setOnClickListener {
+            val tempCode = langRightCode
+            langRightCode = langLeftCode
+            langLeftCode = tempCode
+            updateButtonLabels()
+            clearScreens()
+            Toast.makeText(this, "تم تبديل اللغات", Toast.LENGTH_SHORT).show()
         }
 
-        // مايك خاص بك (يترجم من لغتك إلى لغته)
-        btnMicBottom.setOnClickListener {
-            startVoiceCapture(langBottomCode, REQ_CODE_BOTTOM)
+        // المايك: دايماً بياخد اللغة من الزر اليمين ويحررها فوق ويترجمها تحت للزر اليسار
+        btnMic.setOnClickListener {
+            clearScreens()
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, langRightCode)
+            startActivityForResult(intent, REQ_CODE_RIGHT)
         }
     }
 
-    private fun startVoiceCapture(langCode: String, requestCode: Int) {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, langCode)
-        try {
-            startActivityForResult(intent, requestCode)
-        } catch (e: Exception) {
-            Toast.makeText(this, "المحرك الصوتي غير جاهز", Toast.LENGTH_SHORT).show()
+    private fun updateButtonLabels() {
+        btnLangRight.text = "من: " + getLangName(langRightCode)
+        btnLangLeft.text = "إلى: " + getLangName(langLeftCode)
+    }
+
+    private fun getLangName(code: String): String {
+        return when(code) {
+            "en" -> "English"
+            "ar" -> "العربية"
+            "tr" -> "Türkçe"
+            else -> code
         }
     }
 
@@ -58,27 +76,24 @@ class DialogTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListene
         if (resultCode == RESULT_OK && data != null) {
             val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
             
-            if (requestCode == REQ_CODE_TOP) {
-                // الطرف الآخر تكلم بالإنجليزية -> الترجمة للعربية ونطقها لك
-                Toast.makeText(this, "هو قال: $result", Toast.LENGTH_LONG).show()
-                speakOut(result, langBottomCode) 
-            } else if (requestCode == REQ_CODE_BOTTOM) {
-                // أنت تكلمت بالعربية -> الترجمة للإنجليزية ونطقها له
-                Toast.makeText(this, "أنت قلت: $result", Toast.LENGTH_LONG).show()
-                speakOut(result, langTopCode)
-            }
+            // المحرر العلوي دايماً يتبع الزر اليمين مهما تم التبديل
+            tvInputUpper.text = result
+            
+            // محاكاة الترجمة للمحرر السفلي بناءً على الزر اليسار
+            tvOutputLower.text = "Translating to ${getLangName(langLeftCode)}..."
+            
+            // نطق الترجمة فوراً
+            tts.language = Locale(langLeftCode)
+            tts.speak(tvOutputLower.text.toString(), TextToSpeech.QUEUE_FLUSH, null, null)
         }
     }
 
-    private fun speakOut(text: String, targetLang: String) {
-        tts.language = Locale(targetLang)
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+    private fun clearScreens() {
+        tvInputUpper.text = ""
+        tvOutputLower.text = ""
     }
 
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) tts.language = Locale.getDefault()
-    }
-
+    override fun onInit(status: Int) {}
     override fun onDestroy() {
         if (::tts.isInitialized) { tts.stop(); tts.shutdown() }
         super.onDestroy()
