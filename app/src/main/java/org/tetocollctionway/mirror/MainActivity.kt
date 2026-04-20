@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         // باقي الكروت مؤقتاً بدون ربط فعلي حتى ننشئ شاشاتها
         findViewById<View>(R.id.card_dialog_trans).setOnClickListener { }
+            val intent = Intent(this, DialogTranslatorActivity::class.java)
+            startActivity(intent)
         findViewById<View>(R.id.card_lens_docs).setOnClickListener { }
         findViewById<View>(R.id.card_stories).setOnClickListener { }
         findViewById<View>(R.id.card_games).setOnClickListener { }
