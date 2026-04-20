@@ -36,5 +36,9 @@
         <activity android:name=".SettingsActivity" android:screenOrientation="portrait" />
 
         <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".TextTranslatorActivity" /> 
+        <activity android:name=".LensDocsActivity" /> 
+        <activity android:name=".CreativeStoryActivity" /> 
+        <activity android:name=".StoryTheaterActivity" />
     </application>
 </manifest>

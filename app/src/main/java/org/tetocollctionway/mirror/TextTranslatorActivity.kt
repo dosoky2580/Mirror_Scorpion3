@@ -44,6 +44,8 @@ class TextTranslatorActivity : AppCompatActivity() {
             val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             val recognizedText = result?.get(0) ?: ""
             etInput.setText(recognizedText)
+            translateNow(recognizedText)
+            etInput.setText(recognizedText)
             // ترجمة فورية بعد الكلام
             translateNow(recognizedText)
         }
