@@ -17,8 +17,12 @@ android {
 }
 
 dependencies {
+    // المكتبات الأساسية للتصميم
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // مكتبات المترجم
     implementation 'com.google.mlkit:translate:17.0.1'
     implementation 'com.google.mlkit:language-id:17.0.4'
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
 }
