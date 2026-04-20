@@ -34,6 +34,9 @@ class CreativeStoryActivity : AppCompatActivity() {
             } else {
                 // القبول والتوليد
                 Toast.makeText(this, "تم قبول القصة.. جاري إرسالها لمحرك Veo لتوليد الفيديو.", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, StoryTheaterActivity::class.java)
+                intent.putExtra("STORY_TEXT", story)
+                startActivity(intent)
             }
         }
     }
