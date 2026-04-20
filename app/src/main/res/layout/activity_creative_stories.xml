@@ -34,7 +34,7 @@
             android:id="@+id/btn_generate_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="توليد فيديو (بروتوكول ميرور)"
+            android:text="* يلتزم ميرور ببروتوكول القيم: لا عنف، لا تلامس، لا تنمر. مسموح بالسخرية المعتدلة والذكية فقط."
             android:layout_marginTop="15dp"
             android:backgroundTint="#2E7D32"/>
 
