@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".StoriesActivity" android:screenOrientation="portrait" />
         <activity android:name=".LensDocsActivity" android:screenOrientation="portrait" />
         <activity android:name=".DialogTranslatorActivity" android:screenOrientation="portrait" />
         <activity android:name=".TextTranslatorActivity" android:screenOrientation="portrait" />

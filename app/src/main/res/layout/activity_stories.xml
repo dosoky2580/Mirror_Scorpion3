@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ركن القصص والإلهام"
+        android:textColor="#B71C1C"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_stories_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="المؤثرات المحيطة"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/btn_effect_wind"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:src="@android:drawable/ic_menu_slideshow"
+            android:contentDescription="رياح"
+            android:backgroundTint="#333333"/>
+        
+        <ImageButton
+            android:id="@+id/btn_effect_sea"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:src="@android:drawable/ic_menu_compass"
+            android:contentDescription="بحر"
+            android:backgroundTint="#333333"/>
+
+        <ImageButton
+            android:id="@+id/btn_effect_horses"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:contentDescription="خيول"
+            android:backgroundTint="#333333"/>
+    </LinearLayout>
+</LinearLayout>
