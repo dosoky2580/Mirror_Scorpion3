@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         // 2. كارت حوار مترجم
         findViewById<View>(R.id.card_dialog_trans).setOnClickListener {
-            startActivity(Intent(this, DialogTranslatorActivity::class.java))
+//            startActivity(Intent(this, DialogTranslatorActivity::class.java))
         }
 
         // 3. كارت عدسة ومستندات
