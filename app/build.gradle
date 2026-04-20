@@ -6,7 +6,6 @@ plugins {
 android {
     namespace 'org.tetocollctionway.mirror'
     compileSdk 34
-
     defaultConfig {
         applicationId "org.tetocollctionway.mirror"
         minSdk 21
@@ -14,33 +13,17 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
+    buildFeatures { viewBinding true }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+    kotlinOptions { jvmTarget = '17' }
 }
 
 dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
-    // مكتبات الترجمة واللغات
     implementation 'com.google.mlkit:translate:17.0.1'
     implementation 'com.google.mlkit:language-id:17.0.4'
-    
-    // مكتبة تحليل الصور (Text Recognition) لحل خطأ ImageTranslateActivity
-    implementation 'com.google.mlkit:text-recognition:16.0.0'
-    
-    // مكتبة الكاميرا
-    implementation "androidx.camera:camera-view:1.3.1"
-    implementation "androidx.camera:camera-lifecycle:1.3.1"
-    
-    // مكتبة iText للـ PDF لحل خطأ DocumentTranslateActivity
-    implementation 'com.itextpdf:itext7-core:7.1.15'
 }
