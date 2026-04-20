@@ -1,56 +1,96 @@
 package org.tetocollctionway.mirror
 
-import android.annotation.SuppressLint
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.*
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class LensDocsActivity : AppCompatActivity() {
 
-    private lateinit var layoutOriginal: FrameLayout
-    private lateinit var layoutTranslated: FrameLayout
-    private lateinit var tvStatus: TextView
+    private lateinit var viewFinder: PreviewView
+    private lateinit var cameraExecutor: ExecutorService
+    private lateinit var tvResult: TextView
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lens_docs_v2) // تحديث الواجهة
+        setContentView(R.layout.activity_lens_camera)
 
-        // منطق ترجمة المستندات والضغطة الطويلة
-        val btnTranslate = findViewById<Button>(R.id.btn_start_translation)
-        layoutOriginal = findViewById(R.id.layout_original_doc)
-        layoutTranslated = findViewById(R.id.layout_translated_doc)
-        tvStatus = findViewById(R.id.tv_doc_status)
+        viewFinder = findViewById(R.id.viewFinder)
+        tvResult = findViewById(R.id.tv_lens_result)
 
-        btnTranslate.setOnClickListener {
-            // محاكاة دائرة التحميل (3 ثواني) ثم ظهور الورقة المترجمة
-            tvStatus.text = "جاري التحميل..."
-            btnTranslate.visibility = View.GONE
-            
-            it.postDelayed({
-                tvStatus.text = "تمت الترجمة. (اضغط مطولاً للمقارنة)"
-                layoutTranslated.visibility = View.VISIBLE
-                // تأثير سحب الورقة من اليمين (Animation بسيط)
-                layoutTranslated.translationX = 1000f
-                layoutTranslated.animate().translationX(0f).setDuration(500).start()
-            }, 3000)
+        // طلب إذن الكاميرا
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 10)
         }
 
-        // سحر ميرور: ضغطة طويلة للأصل، رفع الإصبع للمترجم
-        layoutTranslated.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    layoutTranslated.alpha = 0f // إخفاء المترجم لإظهار الأصلي تحتـه
-                    true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    layoutTranslated.alpha = 1f // إعادة المترجم
-                    true
-                }
-                else -> false
+        cameraExecutor = Executors.newSingleThreadExecutor()
+    }
+
+    private fun startCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(viewFinder.surfaceProvider)
             }
+
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build()
+                .also {
+                    it.setAnalyzer(cameraExecutor) { imageProxy ->
+                        processImageProxy(imageProxy)
+                    }
+                }
+
+            try {
+                cameraProvider.unbindAll()
+                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageAnalyzer)
+            } catch (exc: Exception) {
+                Log.e("MirrorLens", "Use case binding failed", exc)
+            }
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    @ExperimentalGetImage
+    private fun processImageProxy(imageProxy: ImageProxy) {
+        val mediaImage = imageProxy.image
+        if (mediaImage != null) {
+            val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+            val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+            recognizer.process(image)
+                .addOnSuccessListener { visionText ->
+                    if (visionText.text.isNotEmpty()) {
+                        tvResult.visibility = android.view.View.VISIBLE
+                        tvResult.text = visionText.text // هنا النص اللي الكاميرا شافته
+                    }
+                }
+                .addOnCompleteListener {
+                    imageProxy.close()
+                }
         }
+    }
+
+    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(
+        baseContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraExecutor.shutdown()
     }
 }
