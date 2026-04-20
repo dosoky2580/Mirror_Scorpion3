@@ -11,21 +11,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 1. كارت الترجمة النصية - الربط الحقيقي
+        // 1. كارت الترجمة النصية
         findViewById<View>(R.id.card_text_trans).setOnClickListener {
-            val intent = Intent(this, TextTranslatorActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, TextTranslatorActivity::class.java))
         }
 
-        // باقي الكروت مؤقتاً بدون ربط فعلي حتى ننشئ شاشاتها
-        findViewById<View>(R.id.card_dialog_trans).setOnClickListener { }
-            val intent = Intent(this, DialogTranslatorActivity::class.java)
-            startActivity(intent)
-        findViewById<View>(R.id.card_lens_docs).setOnClickListener { }
-            val intent = Intent(this, LensDocsActivity::class.java)
-            startActivity(intent)
-        findViewById<View>(R.id.card_stories).setOnClickListener { }
-        findViewById<View>(R.id.card_games).setOnClickListener { }
-        findViewById<View>(R.id.card_settings).setOnClickListener { }
+        // 2. كارت حوار مترجم
+        findViewById<View>(R.id.card_dialog_trans).setOnClickListener {
+            startActivity(Intent(this, DialogTranslatorActivity::class.java))
+        }
+
+        // 3. كارت عدسة ومستندات
+        findViewById<View>(R.id.card_lens_docs).setOnClickListener {
+            startActivity(Intent(this, LensDocsActivity::class.java))
+        }
+
+        // باقي الكروت (قصص، ألعاب، إعدادات) سنفعلها تباعاً
     }
 }
