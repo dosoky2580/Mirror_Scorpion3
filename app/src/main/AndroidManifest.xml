@@ -4,9 +4,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,9 +27,10 @@
 
         <activity android:name=".TextTranslatorActivity" />
         <activity android:name=".LensDocsActivity" />
+        <activity android:name=".DialogueTranslatorActivity" />
+        <activity android:name=".DocumentsActivity" />
         <activity android:name=".CreativeStoryActivity" />
         <activity android:name=".StoryTheaterActivity" />
-        <activity android:name=".StoriesActivity" />
 
     </application>
 </manifest>

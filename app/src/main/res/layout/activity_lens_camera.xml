@@ -9,6 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/btn_capture"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@android:drawable/btn_default_small"
+        android:src="@android:drawable/ic_menu_camera"
+        android:contentDescription="التقاط" />
+
     <Spinner
         android:id="@+id/spinner_lens_lang"
         android:layout_width="wrap_content"
@@ -16,18 +27,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
-        android:background="#AA000000"
-        android:padding="10dp"/>
-
-    <TextView
-        android:id="@+id/tv_lens_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="#88000000"
-        android:textColor="#FFD600"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:visibility="gone"/>
+        android:background="@android:color/white" />
 
 </RelativeLayout>
