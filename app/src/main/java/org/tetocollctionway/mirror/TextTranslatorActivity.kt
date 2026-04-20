@@ -8,6 +8,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.TranslatorOptions
 import java.util.*
 
 class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -15,7 +18,7 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
     private lateinit var etInput: EditText
     private lateinit var tvOutput: TextView
     private lateinit var tts: TextToSpeech
-    private var selectedLanguageCode = "en"
+    private var selectedLanguageCode = TranslateLanguage.ENGLISH
     private var isTranslationDone = false
     private val SPEECH_REQUEST_CODE = 100
 
@@ -33,7 +36,6 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
 
         tts = TextToSpeech(this, this)
 
-        // المسح التلقائي عند لمس الكيبورد بعد الترجمة
         etInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 if (isTranslationDone) {
@@ -45,72 +47,39 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        btnSelectLang.setOnClickListener {
-            showLanguageDialog(btnSelectLang)
-        }
-
-        btnMic.setOnClickListener {
-            clearFields()
-            startSpeechToText()
-        }
-
-        btnSpeak.setOnClickListener {
-            val text = tvOutput.text.toString()
-            if (text.isNotEmpty()) {
-                tts.language = Locale(selectedLanguageCode)
-                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
-            }
-        }
+        btnSelectLang.setOnClickListener { showLanguageDialog(btnSelectLang) }
+        btnMic.setOnClickListener { clearFields(); startSpeechToText() }
 
         btnShare.setOnClickListener {
             val textToShare = tvOutput.text.toString()
             if (textToShare.isNotEmpty()) {
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "text/plain"
-                // إضافة توقيع ميرور كما طلبت
-                val signature = "\n\nتمت الترجمة بواسطة ميرور سكربيون"
-                intent.putExtra(Intent.EXTRA_TEXT, textToShare + signature)
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, textToShare + "\n\nتمت الترجمة بواسطة ميرور سكربيون")
+                }
                 startActivity(Intent.createChooser(intent, "مشاركة الترجمة"))
-            }
-        }
-
-        btnCopy.setOnClickListener {
-            val text = tvOutput.text.toString()
-            if (text.isNotEmpty()) {
-                val clipboard = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
-                clipboard.setPrimaryClip(android.content.ClipData.newPlainText("Mirror", text))
-                Toast.makeText(this, "تم النسخ بنجاح", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun showLanguageDialog(btn: Button) {
-        val languages = arrayOf("الإنجليزية", "التركية", "العربية", "الفرنسية", "الألمانية", "الإيطالية", "الإسبانية")
-        val codes = arrayOf("en", "tr", "ar", "fr", "de", "it", "es")
-        val builder = android.app.AlertDialog.Builder(this)
-        builder.setTitle("اختر لغة الترجمة")
-        builder.setItems(languages) { _, which ->
-            selectedLanguageCode = codes[which]
-            btn.text = "مترجم إلى: ${languages[which]}"
-        }
-        builder.show()
+        val languages = arrayOf("الإنجليزية", "التركية", "الألمانية")
+        val codes = arrayOf(TranslateLanguage.ENGLISH, TranslateLanguage.TURKISH, TranslateLanguage.GERMAN)
+        android.app.AlertDialog.Builder(this)
+            .setTitle("اختر لغة الترجمة")
+            .setItems(languages) { _, which ->
+                selectedLanguageCode = codes[which]
+                btn.text = "مترجم إلى: ${languages[which]}"
+            }
+            .show()
     }
 
     private fun startSpeechToText() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        startActivityForResult(intent, SPEECH_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            val recognizedText = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
-            etInput.setText(recognizedText)
-            tvOutput.text = "جاري الترجمة..." // سيتم ربط الـ API الفعلي هنا
-            isTranslationDone = true
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         }
+        startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
     private fun clearFields() {
