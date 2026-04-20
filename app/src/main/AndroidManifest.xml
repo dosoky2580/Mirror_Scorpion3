@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         
         <activity
-            android:name=".MainActivity"
+            android:name=".WelcomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,5 +31,6 @@
         <activity android:name=".GamesActivity" android:screenOrientation="portrait" />
         <activity android:name=".SettingsActivity" android:screenOrientation="portrait" />
 
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
     </application>
 </manifest>
