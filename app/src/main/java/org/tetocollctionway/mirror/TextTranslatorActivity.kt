@@ -14,7 +14,7 @@ class TextTranslatorActivity : AppCompatActivity() {
 
     private lateinit var etInput: EditText
     private lateinit var tvOutput: TextView
-    private var selectedLang = TranslateLanguage.TURKISH
+    private var selectedLang = TranslateLanguage.TURKISH // اللغة الافتراضية التركية كما تحب
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +30,11 @@ class TextTranslatorActivity : AppCompatActivity() {
     private fun startSpeech() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-SA") // تحديد العربي كمصدر
         try {
             startActivityForResult(intent, 100)
         } catch (e: Exception) {
-            Toast.makeText(this, "جوجل فويس غير متاح حالياً", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "جوجل فويس غير متاح", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -43,23 +43,37 @@ class TextTranslatorActivity : AppCompatActivity() {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             val recognizedText = result?.get(0) ?: ""
+            
+            // 1. كتابة النص فوراً في الخانة العليا
             etInput.setText(recognizedText)
-            translateNow(recognizedText)
-            etInput.setText(recognizedText)
-            // ترجمة فورية بعد الكلام
-            translateNow(recognizedText)
+            
+            // 2. البدء في الترجمة فوراً تلقائياً
+            translateAutomatically(recognizedText)
         }
     }
 
-    private fun translateNow(text: String) {
+    private fun translateAutomatically(text: String) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ARABIC)
             .setTargetLanguage(selectedLang)
             .build()
         val translator = Translation.getClient(options)
         
-        translator.downloadModelIfNeeded().addOnSuccessListener {
-            translator.translate(text).addOnSuccessListener { tvOutput.text = it }
-        }
+        tvOutput.text = "جاري الترجمة..."
+        
+        translator.downloadModelIfNeeded()
+            .addOnSuccessListener {
+                translator.translate(text)
+                    .addOnSuccessListener { translatedText ->
+                        // 3. عرض النتيجة في الخانة السفلى
+                        tvOutput.text = translatedText
+                    }
+                    .addOnFailureListener {
+                        tvOutput.text = "فشلت الترجمة، حاول ثانية."
+                    }
+            }
+            .addOnFailureListener {
+                tvOutput.text = "برجاء الاتصال بالإنترنت لتحميل قاموس اللغة."
+            }
     }
 }
