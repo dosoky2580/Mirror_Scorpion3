@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardBackgroundColor="#1A1A1A"
+            app:cardCornerRadius="15dp"
+            android:layout_marginBottom="20dp">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+                <TextView
+                    android:id="@+id/tv_inspire_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="رسائل الإلهام الذكية"
+                    android:textColor="#FFD600"
+                    android:textStyle="bold"/>
+                <Switch
+                    android:id="@+id/switch_inspiration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"/>
+                <TextView
+                    android:layout_below="@id/tv_inspire_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تفعيل الإشعارات الملهمة كل 3 ساعات"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_content_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:background="#0D0D0D"
+            android:padding="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="اضغط على أحد الأزرار بالأسفل للبدء"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="20dp">
+            
+            <Button android:id="@+id/btn_hadith" android:text="أحاديث قدسية" android:layout_margin="5dp" android:layout_gravity="fill_horizontal"/>
+            <Button android:id="@+id/btn_quran_stories" android:text="قصص القرآن" android:layout_margin="5dp" android:layout_gravity="fill_horizontal"/>
+            <Button android:id="@+id/btn_ai_message" android:text="رسالة إلهام الآن" android:layout_margin="5dp" android:layout_gravity="fill_horizontal"/>
+            <ImageButton android:id="@+id/btn_speak_story" android:src="@android:drawable/ic_lock_silent_mode_off" android:layout_margin="5dp" android:backgroundTint="#B71C1C"/>
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>
