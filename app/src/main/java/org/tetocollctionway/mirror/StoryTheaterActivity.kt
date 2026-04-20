@@ -10,11 +10,19 @@ class StoryTheaterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_story_theater)
 
         val storyText = intent.getStringExtra("STORY_TEXT")
-        Toast.makeText(this, "بدء عرض القصة: ${storyText?.take(20)}...", Toast.LENGTH_LONG).show()
+        if (storyText != null) {
+            Toast.makeText(this, "بدء عرض القصة: ${storyText.take(20)}...", Toast.LENGTH_LONG).show()
+        }
 
-        // منطق تشغيل المؤثرات الصوتية (SFX)
+        // أزرار المؤثرات الصوتية (SFX)
         findViewById<ImageButton>(R.id.btn_sfx_wind).setOnClickListener {
-            Toast.makeText(this, "تشغيل مؤثر الرياح الهادئة", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "تشغيل مؤثر: رياح الصحراء", Toast.LENGTH_SHORT).show()
+        }
+        findViewById<ImageButton>(R.id.btn_sfx_rain).setOnClickListener {
+            Toast.makeText(this, "تشغيل مؤثر: صوت المطر", Toast.LENGTH_SHORT).show()
+        }
+        findViewById<ImageButton>(R.id.btn_sfx_nature).setOnClickListener {
+            Toast.makeText(this, "تشغيل مؤثر: الطبيعة والطيور", Toast.LENGTH_SHORT).show()
         }
     }
 }
