@@ -10,42 +10,66 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ركن الإبداع: اكتب قصتك"
-            android:textColor="#FFD600"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardBackgroundColor="#1A1A1A"
+            app:cardCornerRadius="12dp"
+            android:layout_marginBottom="20dp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="بروتوكول ميرور لتوليد الفيديو"
+                    android:textColor="#FFD600"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. لا تلامس بين الرجال والنساء.\n2. لا مشاهد عنف (أو تغطية بفلتر شفاف عند الضرورة القصوى).\n3. لا كلمات بذيئة أو حض على الكراهية.\n4. لا تنمر بكل أشكاله.\n5. السخرية المعتدلة والذكية مسموحة."
+                    android:textColor="#CCCCCC"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="4dp"/>
+                
+                <CheckBox
+                    android:id="@+id/cb_agree_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="أوافق على الالتزام ببروتوكول القيم"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="#FFD600"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <EditText
             android:id="@+id/et_user_story"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#1A1A1A"
-            android:gravity="top"
-            android:hint="اطلق لخيالك العنان هنا..."
-            android:padding="15dp"
+            android:layout_height="180dp"
+            android:background="#111111"
+            android:hint="اكتب قصتك هنا بعد الموافقة على الشروط..."
             android:textColor="#FFFFFF"
-            android:textColorHint="#555555" />
+            android:textColorHint="#444444"
+            android:padding="15dp"
+            android:gravity="top"
+            android:enabled="false" />
 
         <Button
             android:id="@+id/btn_generate_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="* يلتزم ميرور ببروتوكول القيم: لا عنف، لا تلامس، لا تنمر. مسموح بالسخرية المعتدلة والذكية فقط."
+            android:text="توليد الفيديو (تحت الرقابة)"
             android:layout_marginTop="15dp"
-            android:backgroundTint="#2E7D32"/>
+            android:enabled="false"
+            android:backgroundTint="#B71C1C"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="* يلتزم ميرور ببروتوكول القيم: لا عنف، لا تلامس، لا كلمات بذيئة."
-            android:textColor="#888888"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"/>
-            
     </LinearLayout>
 </ScrollView>

@@ -1,6 +1,7 @@
 package org.tetocollctionway.mirror
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -10,43 +11,56 @@ class CreativeStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creative_stories)
 
+        val cbAgree = findViewById<CheckBox>(R.id.cb_agree_protocol)
         val etStory = findViewById<EditText>(R.id.et_user_story)
         val btnGenerate = findViewById<Button>(R.id.btn_generate_video)
 
-        btnGenerate.setOnClickListener {
-            val story = etStory.text.toString().trim()
-            
-            if (story.isEmpty()) {
-                Toast.makeText(this, "اكتب قصتك أولاً يا صديقي", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+        // تفعيل الكتابة والزر فقط عند الموافقة
+        cbAgree.setOnCheckedChangeListener { _, isChecked ->
+            etStory.isEnabled = isChecked
+            btnGenerate.isEnabled = isChecked
+            if (isChecked) etStory.hint = "اطلق لخيالك العنان..."
+        }
 
+        btnGenerate.setOnClickListener {
+            val story = etStory.text.toString().trim().lowercase()
+            
             // تطبيق بروتوكول ميرور الصارم
-            val violation = checkMirrorProtocol(story.lowercase())
+            val violation = validateProtocol(story)
             
             if (violation != null) {
-                // إظهار سبب الرفض بناءً على نوع الانتهاك
-                Toast.makeText(this, "تنبيه: ${violation}", Toast.LENGTH_LONG).show()
+                // الرفض مع ذكر السبب
+                showProtocolError(violation)
             } else {
-                Toast.makeText(this, "قصة رائعة! تتوافق مع معايير ميرور.. جاري التحويل لمشاهد.", Toast.LENGTH_SHORT).show()
-                // هنا سيتم استدعاء محرك توليد الفيديو
+                // القبول والتوليد
+                Toast.makeText(this, "تم قبول القصة.. جاري إرسالها لمحرك Veo لتوليد الفيديو.", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun checkMirrorProtocol(text: String): String? {
-        // 1. فحص العنف والكلمات البذيئة
-        val violenceWords = listOf("قتل", "دم", "ضرب", "تعذيب", "انتقام عنيف")
-        if (violenceWords.any { text.contains(it) }) return "بروتوكول ميرور يمنع مشاهد العنف."
+    private fun validateProtocol(text: String): String? {
+        if (text.isEmpty()) return "برجاء كتابة نص أولاً."
+        
+        // فحص العنف والكراهية والتنمر (بناءً على بروتوكول تامر)
+        val forbidden = mapOf(
+            "عنف" to listOf("قتل", "دم", "ضرب", "تعذيب", "سلاح"),
+            "تلامس" to listOf("حضن", "قبلة", "تلامس", "إغراء"),
+            "كراهية وتنمر" to listOf("أكره", "غبي", "فاشل", "قبيح", "حثالة")
+        )
 
-        // 2. فحص الكراهية والتنمر
-        val hateSpeech = listOf("أكره", "غبي", "قبيح", "فاشل") // أمثلة بسيطة للتنمر
-        if (hateSpeech.any { text.contains(it) }) return "نحن نشجع الإبداع، لا التنمر أو خطاب الكراهية."
+        for ((category, words) in forbidden) {
+            if (words.any { text.contains(it) }) {
+                return "مرفوض: النص يحتوي على إيحاءات ($category) تتعارض مع بروتوكول ميرور."
+            }
+        }
+        return null
+    }
 
-        // 3. فحص التلامس غير اللائق
-        val contactWords = listOf("تلامس", "حضن", "قبلة")
-        if (contactWords.any { text.contains(it) }) return "بروتوكول القيم يمنع مشاهد التلامس."
-
-        return null // القصة سليمة
+    private fun showProtocolError(error: String) {
+        android.app.AlertDialog.Builder(this)
+            .setTitle("تعارض مع البروتوكول")
+            .setMessage(error)
+            .setPositiveButton("فهمت") { d, _ -> d.dismiss() }
+            .show()
     }
 }
