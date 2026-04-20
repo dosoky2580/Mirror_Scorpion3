@@ -1,23 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mirror.adham">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <application
-        android:allowBackup="true"
-        android:icon="@android:mipmap/sym_def_app_icon"
-        android:label="Mirror Scorpion"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".TextTranslatorActivity" />
-        <activity android:name=".DialogueTranslatorActivity" />
-        <activity android:name=".LensDocsActivity" />
-        <activity android:name=".CreativeStoryActivity" />
-        <activity android:name=".StoryTheaterActivity" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application>
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="langid,translate" />
     </application>
 </manifest>
