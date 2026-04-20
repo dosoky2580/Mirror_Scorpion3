@@ -3,12 +3,15 @@ package org.tetocollctionway.mirror
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.widget.*
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
-import java.util.*
+import java.util.Locale
 
 class TextTranslatorActivity : AppCompatActivity() {
 
@@ -20,8 +23,9 @@ class TextTranslatorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_translator)
 
-        etInput = findViewById(R.id.et_input_text)
-        tvOutput = findViewById(R.id.tv_translated_text)
+        // الربط اليدوي لضمان عدم وجود Unresolved reference
+        etInput = findViewById<EditText>(R.id.et_input_text)
+        tvOutput = findViewById<TextView>(R.id.tv_translated_text)
         val btnMic = findViewById<ImageButton>(R.id.btn_mic)
 
         btnMic.setOnClickListener { startSpeech() }
@@ -34,7 +38,7 @@ class TextTranslatorActivity : AppCompatActivity() {
         try {
             startActivityForResult(intent, 100)
         } catch (e: Exception) {
-            Toast.makeText(this, "جوجل فويس غير متاح حالياً", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Speech recognition error", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -56,7 +60,11 @@ class TextTranslatorActivity : AppCompatActivity() {
         val translator = Translation.getClient(options)
         
         translator.downloadModelIfNeeded().addOnSuccessListener {
-            translator.translate(text).addOnSuccessListener { tvOutput.text = it }
+            translator.translate(text).addOnSuccessListener { translatedText ->
+                tvOutput.text = translatedText
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Translation failed", Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -1,68 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:orientation="vertical"
     android:padding="16dp">
-
-    <Spinner
-        android:id="@+id/spinner_languages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:padding="10dp" />
 
     <EditText
         android:id="@+id/et_input_text"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/spinner_languages"
+        android:layout_height="wrap_content"
+        android:hint="input text"
+        android:minHeight="100dp"/>
+
+    <TextView
+        android:id="@+id/tv_translated_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#1A1A1A"
-        android:gravity="top"
-        android:hint="الكلام الملتقط سيظهر هنا..."
-        android:padding="15dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#555555" />
+        android:text="translation"
+        android:textSize="18sp"/>
 
     <ImageButton
         android:id="@+id/btn_mic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@id/et_input_text"
-        android:layout_alignLeft="@id/et_input_text"
-        android:layout_margin="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@android:drawable/ic_btn_speak_now"
-        android:contentDescription="مايك" />
-
-    <EditText
-        android:id="@+id/et_output_text"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/et_input_text"
-        android:layout_marginTop="20dp"
-        android:background="#1A1A1A"
-        android:gravity="top"
-        android:hint="الترجمة ستظهر هنا..."
-        android:padding="15dp"
-        android:textColor="#FFD600"
-        android:textColorHint="#555555"
-        android:focusable="false" />
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/et_output_text"
-        android:layout_alignRight="@id/et_output_text"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:src="@android:drawable/ic_btn_speak_now"/>
 
-        <ImageButton android:id="@+id/btn_copy" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_edit" android:contentDescription="نسخ" android:layout_margin="2dp"/>
-        <ImageButton android:id="@+id/btn_share" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_share" android:contentDescription="مشاركة صوت" android:layout_margin="2dp"/>
-        <ImageButton android:id="@+id/btn_speak" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:contentDescription="نطق" android:layout_margin="2dp"/>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
