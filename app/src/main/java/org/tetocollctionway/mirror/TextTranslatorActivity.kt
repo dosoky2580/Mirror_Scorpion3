@@ -13,12 +13,19 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
     private lateinit var etInput: EditText
     private lateinit var tvOutput: TextView
     private lateinit var tts: TextToSpeech
-    private var selectedLanguageCode = "en" // اللغة الافتراضية
+    private var selectedLanguageCode = "en" 
     private val SPEECH_REQUEST_CODE = 100
 
-    // مصفوفة عينة من اللغات (سنوسعها لتشمل الـ 100 لغة لاحقاً)
-    private val languages = arrayOf("الإنجليزية", "التركية", "الفرنسية", "الألمانية", "الإيطالية", "الإسبانية", "الصينية", "اليابانية")
-    private val languageCodes = arrayOf("en", "tr", "fr", "de", "it", "es", "zh", "ja")
+    // القائمة الكاملة لأهم اللغات (يمكن توسيعها برمجياً لـ 100)
+    private val languages = arrayOf(
+        "الإنجليزية", "التركية", "العربية", "الفرنسية", "الألمانية", "الإيطالية", 
+        "الإسبانية", "الروسية", "الصينية", "اليابانية", "الكورية", "الهندية", 
+        "الأردية", "الفارسية", "الهولندية", "السويدية", "اليونانية", "العبرية"
+    )
+    private val languageCodes = arrayOf(
+        "en", "tr", "ar", "fr", "de", "it", "es", "ru", "zh", "ja", "ko", "hi", 
+        "ur", "fa", "nl", "sv", "el", "he"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +37,30 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
         val btnMic = findViewById<ImageButton>(R.id.btn_mic)
         val btnSpeak = findViewById<ImageButton>(R.id.btn_speak)
         val btnCopy = findViewById<ImageButton>(R.id.btn_copy)
+        val btnShare = findViewById<ImageButton>(R.id.btn_share_audio)
 
         tts = TextToSpeech(this, this)
 
-        // اختيار اللغة من القائمة
         btnSelectLang.setOnClickListener {
             val builder = android.app.AlertDialog.Builder(this)
-            builder.setTitle("اختر لغة الترجمة")
+            builder.setTitle("اختر لغة الهدف")
             builder.setItems(languages) { _, which ->
                 selectedLanguageCode = languageCodes[which]
                 btnSelectLang.text = "مترجم إلى: ${languages[which]}"
-                Toast.makeText(this, "تم اختيار ${languages[which]}", Toast.LENGTH_SHORT).show()
             }
             builder.show()
         }
 
         btnMic.setOnClickListener {
-            clearFields()
+            etInput.text.clear()
+            tvOutput.text = ""
             startSpeechToText()
         }
 
         btnSpeak.setOnClickListener {
             val text = tvOutput.text.toString()
             if (text.isNotEmpty()) {
+                tts.language = Locale(selectedLanguageCode)
                 tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
             }
         }
@@ -61,10 +69,20 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
             val text = tvOutput.text.toString()
             if (text.isNotEmpty()) {
                 val clipboard = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
-                val clip = android.content.ClipData.newPlainText("MirrorTranslation", text)
+                val clip = android.content.ClipData.newPlainText("Mirror", text)
                 clipboard.setPrimaryClip(clip)
-                Toast.makeText(this, "تم نسخ النص", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "تم النسخ", Toast.LENGTH_SHORT).show()
             }
+        }
+        
+        btnShare.setOnClickListener {
+             val text = tvOutput.text.toString()
+             if (text.isNotEmpty()) {
+                 val intent = Intent(Intent.ACTION_SEND)
+                 intent.type = "text/plain"
+                 intent.putExtra(Intent.EXTRA_TEXT, text)
+                 startActivity(Intent.createChooser(intent, "مشاركة الترجمة عبر..."))
+             }
         }
     }
 
@@ -78,30 +96,20 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            val recognizedText = result?.get(0) ?: ""
+            val recognizedText = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
             etInput.setText(recognizedText)
-            // هنا سنستدعي محرك الترجمة الفعلي في الخطوة القادمة
-            tvOutput.text = "جاري الترجمة إلى ${selectedLanguageCode}..." 
+            
+            // محاكاة محرك الترجمة (حتى نربط الـ API الفعلي في التحديث القادم)
+            tvOutput.text = "جاري معالجة النص وترجمته إلى (${selectedLanguageCode})..."
         }
     }
 
     override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            tts.language = Locale.US
-        }
-    }
-
-    private fun clearFields() {
-        etInput.text.clear()
-        tvOutput.text = ""
+        if (status == TextToSpeech.SUCCESS) tts.language = Locale.getDefault()
     }
 
     override fun onDestroy() {
-        if (::tts.isInitialized) {
-            tts.stop()
-            tts.shutdown()
-        }
+        if (::tts.isInitialized) { tts.stop(); tts.shutdown() }
         super.onDestroy()
     }
 }
