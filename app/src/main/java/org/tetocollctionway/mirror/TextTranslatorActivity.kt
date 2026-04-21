@@ -18,15 +18,13 @@ class TextTranslatorActivity : AppCompatActivity() {
         binding = ActivityTextTranslatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // اللغات المطلوبة مبدئياً (مع إمكانية جلب القائمة كاملة من جوجل لاحقاً)
         val langMap = mapOf(
             "التركية" to TranslateLanguage.TURKISH,
             "الإنجليزية" to TranslateLanguage.ENGLISH,
             "البنغالية" to TranslateLanguage.BENGALI,
             "الهندية" to TranslateLanguage.HINDI,
-            "السيرلانكية (السينهالية)" to TranslateLanguage.SINHALA,
-            "الفرنسية" to TranslateLanguage.FRENCH,
-            "الألمانية" to TranslateLanguage.GERMAN
+            "السيرلانكية" to "si", // الكود المختصر الصحيح للسينهالية
+            "الفرنسية" to TranslateLanguage.FRENCH
         )
 
         binding.btnSelectLanguage.setOnClickListener {
@@ -35,7 +33,8 @@ class TextTranslatorActivity : AppCompatActivity() {
                 .setTitle("اختر لغة الترجمة")
                 .setItems(languages) { _, which ->
                     val selected = languages[which]
-                    targetLang = langMap[selected]!!
+                    val langValue = langMap[selected]!!
+                    targetLang = langValue.toString()
                     binding.btnSelectLanguage.text = "ترجمة إلى: $selected"
                 }.show()
         }
@@ -55,13 +54,12 @@ class TextTranslatorActivity : AppCompatActivity() {
             .build()
         val translator = Translation.getClient(options)
         
-        // محرك جوجل يحمل الموديل إذا لم يكن موجوداً
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
                 binding.tvOutput.text = translatedText
             }
         }.addOnFailureListener {
-            Toast.makeText(this, "يرجى التأكد من الاتصال بالإنترنت لتحميل اللغة", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "خطأ في المحرك أو الإنترنت", Toast.LENGTH_SHORT).show()
         }
     }
 }
