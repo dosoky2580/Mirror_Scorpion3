@@ -3,6 +3,7 @@ package org.tetocollctionway.mirror
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
@@ -19,10 +20,11 @@ class LensActivity : AppCompatActivity() {
         binding = ActivityLensBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (allPermissionsGranted()) {
+        // طلب صلاحية الكاميرا برمجياً (اعتقد هذا هو سبب الشاشة السوداء)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 10)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 20)
         }
     }
 
@@ -36,9 +38,19 @@ class LensActivity : AppCompatActivity() {
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview)
-            } catch(e: Exception) {}
+            } catch(e: Exception) {
+                Toast.makeText(this, "فشل فتح الكاميرا", Toast.LENGTH_SHORT).show()
+            }
         }, ContextCompat.getMainExecutor(this))
     }
 
-    private fun allPermissionsGranted() = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 20 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startCamera()
+        } else {
+            Toast.makeText(this, "يجب الموافقة على صلاحية الكاميرا", Toast.LENGTH_LONG).show()
+            finish()
+        }
+    }
 }

@@ -13,17 +13,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // الربط بالأسماء الجديدة حسب وصفك
-        binding.btnTextTranslator.setOnClickListener {
+        // 1. الترجمة الفورية (الآن تفتح الشاشة الصحيحة)
+        binding.cardTextTranslator.setOnClickListener {
             startActivity(Intent(this, TextTranslatorActivity::class.java))
         }
-        
-        binding.btnDialogTranslator.setOnClickListener {
-            // سنضيف الكود عند بدء الكارت الثاني
+
+        // 2. العدسة (الآن تفتح شاشة العدسة)
+        binding.cardLens.setOnClickListener {
+            startActivity(Intent(this, LensActivity::class.java))
         }
 
-        binding.btnDocLens.setOnClickListener { startActivity(Intent(this, DocLensActivity::class.java))
-            // سنضيف الكود عند بدء الكارت الثالث
+        // 3. المستندات (الآن تفتح محرك المستندات)
+        binding.cardDocs.setOnClickListener {
+            startActivity(Intent(this, DocsEngineActivity::class.java))
         }
+
+        // باقي الأزرار (سنقوم بتفعيلها لاحقاً)
     }
 }
