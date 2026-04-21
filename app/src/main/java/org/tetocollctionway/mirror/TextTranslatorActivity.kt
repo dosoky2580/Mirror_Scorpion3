@@ -1,7 +1,6 @@
 package org.tetocollctionway.mirror
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ class TextTranslatorActivity : AppCompatActivity() {
         binding = ActivityTextTranslatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // قائمة اللغات (الـ 4 لغات الأساسية حالياً وقابلة للزيادة لـ 100)
+        // قائمة اللغات الأساسية حالياً (جاهزة للتوسع لـ 100 لغة)
         val langMap = mapOf(
             "التركية" to TranslateLanguage.TURKISH,
             "الإنجليزية" to TranslateLanguage.ENGLISH,
@@ -28,18 +27,20 @@ class TextTranslatorActivity : AppCompatActivity() {
             "الإيطالية" to TranslateLanguage.ITALIAN
         )
 
-        binding.btnSelectLanguage.setOnClickListener {
+        // الربط مع الزرار العلوي (btnLanguageSelector) لتحديد اللغة
+        binding.btnLanguageSelector.setOnClickListener {
             val languages = langMap.keys.toTypedArray()
             AlertDialog.Builder(this)
                 .setTitle("اختر لغة الترجمة")
                 .setItems(languages) { _, which ->
                     val selected = languages[which]
                     targetLang = langMap[selected]!!
-                    binding.btnSelectLanguage.text = "ترجمة إلى: $selected"
+                    binding.btnLanguageSelector.text = "ترجمة إلى: $selected"
                     Toast.makeText(this, "تم اختيار $selected", Toast.LENGTH_SHORT).show()
                 }.show()
         }
 
+        // تنفيذ الترجمة عند الضغط على زر الترجمة (btnTranslate)
         binding.btnTranslate.setOnClickListener {
             val text = binding.etInput.text.toString()
             if (text.isNotEmpty()) {
@@ -57,12 +58,16 @@ class TextTranslatorActivity : AppCompatActivity() {
             .build()
         val translator = Translation.getClient(options)
         
+        binding.tvOutput.text = "جاري الترجمة..."
+        
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
                 binding.tvOutput.text = translatedText
+            }.addOnFailureListener {
+                binding.tvOutput.text = "فشل في الترجمة"
             }
         }.addOnFailureListener {
-            Toast.makeText(this, "فشل في تحميل محرك اللغة", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "فشل في تحميل محرك اللغة، تأكد من الإنترنت", Toast.LENGTH_SHORT).show()
         }
     }
 }
