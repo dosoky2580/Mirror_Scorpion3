@@ -11,8 +11,11 @@ class DocLensActivity : AppCompatActivity() {
         binding = ActivityDocLensBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
+        binding.btnLensFeature.setOnClickListener {
+            startActivity(Intent(this, LensActivity::class.java))
+        }
         binding.btnDocsFeature.setOnClickListener {
-            // كود فتح محرك المستندات
+            startActivity(Intent(this, DocsEngineActivity::class.java))
         }
     }
 }
