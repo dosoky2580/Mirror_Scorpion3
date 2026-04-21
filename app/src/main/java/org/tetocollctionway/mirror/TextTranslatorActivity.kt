@@ -16,7 +16,7 @@ import java.util.*
 class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityTextTranslatorBinding
     private lateinit var tts: TextToSpeech
-    private var targetLangCode = TranslateLanguage.TURKISH
+    private var targetLang = TranslateLanguage.TURKISH
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,34 +24,42 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
         setContentView(binding.root)
         tts = TextToSpeech(this, this)
 
-        // اختيار اللغة (الـ 100 لغة سنضيفهم تدريجياً، نبدأ بالأهم)
+        val langMap = mapOf(
+            "التركية" to TranslateLanguage.TURKISH,
+            "الإنجليزية" to TranslateLanguage.ENGLISH,
+            "البنغالية" to TranslateLanguage.BENGALI,
+            "الهندية" to TranslateLanguage.HINDI,
+            "السيرلانكية" to "si" 
+        )
+
+        // اختيار اللغة (الزر اللي في منتصف الشاشة العلوي)
         binding.btnLanguageSelector.setOnClickListener {
-            val languages = arrayOf("التركية", "الإنجليزية", "البنغالية", "الهندية", "السيرلانكية")
+            val languages = langMap.keys.toTypedArray()
             AlertDialog.Builder(this)
                 .setTitle("اختر لغة الترجمة")
                 .setItems(languages) { _, which ->
                     val selected = languages[which]
-                    targetLangCode = when(selected) {
-                        "الإنجليزية" -> TranslateLanguage.ENGLISH
-                        "البنغالية" -> TranslateLanguage.BENGALI
-                        "الهندية" -> TranslateLanguage.HINDI
-                        else -> TranslateLanguage.TURKISH
-                    }
+                    targetLang = langMap[selected] ?: TranslateLanguage.TURKISH
                     binding.btnLanguageSelector.text = "ترجمة إلى: $selected"
                 }.show()
         }
 
-        // تفعيل المايك (الالتقاط والتحرير)
-        binding.btnMic.setOnClickListener {
+        // المسح عند بدء كتابة أو التقاط جديد كما طلبت
+        val clearFields = {
             binding.etInput.text.clear()
             binding.tvOutput.text = ""
+        }
+
+        // المايك للالتقاط والتحرير
+        binding.btnMic.setOnClickListener {
+            clearFields()
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
             startActivityForResult(intent, 100)
         }
 
-        // نطق الجمل المترجمة
+        // النطق (الاسبيكر)
         binding.btnSpeaker.setOnClickListener {
             val text = binding.tvOutput.text.toString()
             if (text.isNotEmpty()) {
@@ -59,18 +67,18 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
             }
         }
 
-        // نسخ النص
+        // النسخ
         binding.btnCopy.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            val clip = android.content.ClipData.newPlainText("Mirror Translation", binding.tvOutput.text)
+            val clip = android.content.ClipData.newPlainText("Mirror", binding.tvOutput.text)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "تم نسخ النص المترجم", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "تم النسخ", Toast.LENGTH_SHORT).show()
         }
 
-        // مشاركة ملف الصوت (بجملة ميرور سكربيون)
+        // المشاركة (ملف صوتي فقط بتوقيع ميرور)
         binding.btnShare.setOnClickListener {
-            Toast.makeText(this, "تمت الترجمة بواسطة ميرور سكربيون - جاري تجهيز الملف", Toast.LENGTH_SHORT).show()
-            // كود تشفير الصوت سيضاف لاحقاً لضمان توقيع التطبيق
+            Toast.makeText(this, "تمت الترجمة بواسطة ميرور سكربيون", Toast.LENGTH_LONG).show()
+            // سيتم إضافة كود توليد ملف الـ mp3 هنا
         }
     }
 
@@ -78,17 +86,20 @@ class TextTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListener 
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == RESULT_OK) {
             val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            binding.etInput.setText(result?.get(0))
-            performTranslation(result?.get(0) ?: "")
+            val capturedText = result?.get(0) ?: ""
+            binding.etInput.setText(capturedText)
+            performTranslation(capturedText)
         }
     }
 
     private fun performTranslation(text: String) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ARABIC)
-            .setTargetLanguage(targetLangCode)
+            .setTargetLanguage(targetLang)
             .build()
         val translator = Translation.getClient(options)
+        
+        binding.tvOutput.text = "جاري الترجمة..."
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
                 binding.tvOutput.text = translatedText
