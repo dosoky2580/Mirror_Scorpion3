@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
-
-    <LinearLayout
-        android:id="@+id/header_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <EditText
-            android:id="@+id/et_url"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="أدخل رابط المستند هنا..."
-            android:textColor="#FFFFFF"
-            android:background="#1A1A1A"
-            android:padding="12dp"/>
-        <Button
-            android:id="@+id/btn_fetch_url"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="بحث"/>
-    </LinearLayout>
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
 
     <Button
-        android:id="@+id/btn_browse"
-        android:layout_width="200dp"
+        android:id="@+id/btnBrowse"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header_input"
-        android:layout_centerHorizontal="true"
-        android:text="فتح من المستعرض"
-        android:layout_marginTop="10dp"/>
+        android:text="استعراض ملف PDF"
+        android:backgroundTint="#27AE60"/>
+
+    <TextView
+        android:id="@+id/tvFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        android:text="لم يتم اختيار ملف بعد"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
 
     <Button
-        android:id="@+id/btn_start_translate"
+        android:id="@+id/btnStartTranslate"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:text="تـرجـمـة"
+        android:layout_height="wrap_content"
+        android:text="بدء الاستخراج والترجمة"
+        android:layout_marginTop="20dp"
         android:visibility="gone"
         android:backgroundTint="#FFD700"
         android:textColor="#000000"/>
 
-    </RelativeLayout>
+</LinearLayout>
