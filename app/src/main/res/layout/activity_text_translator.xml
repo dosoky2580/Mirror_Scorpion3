@@ -1,30 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#000000"
+    android:padding="10dp">
 
-    <EditText
-        android:id="@+id/et_input_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="input text"
-        android:minHeight="100dp"/>
-
-    <TextView
-        android:id="@+id/tv_translated_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="translation"
-        android:textSize="18sp"/>
-
-    <ImageButton
-        android:id="@+id/btn_mic"
+    <Button
+        android:id="@+id/btn_select_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@android:drawable/ic_btn_speak_now"/>
+        android:layout_gravity="center_horizontal"
+        android:text="اختر اللغة (العربية)"
+        android:backgroundTint="#FFD700"
+        android:textColor="#000000" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:background="#1A1A1A">
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="تحدث أو اكتب هنا..."
+            android:textColor="#FFFFFF"
+            android:gravity="top"
+            android:padding="10dp"
+            android:background="@null"/>
+        <ImageButton
+            android:id="@+id/btn_mic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:background="#222222">
+        <TextView
+            android:id="@+id/tv_output"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:textColor="#03DAC5"
+            android:textSize="18sp"/>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+            <ImageButton android:id="@+id/btn_copy" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_edit" android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton android:id="@+id/btn_share" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_share" android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton android:id="@+id/btn_speaker" android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:background="?attr/selectableItemBackgroundBorderless"/>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
