@@ -1,44 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#000000"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etInput"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:hint="أدخل النص هنا..."
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888"
-        android:gravity="top"
-        android:background="#1A1A1A"
-        android:padding="10dp"/>
-
     <Button
-        android:id="@+id/btnSelectLanguage"
-        android:layout_width="match_parent"
+        android:id="@+id/btnLanguageSelector"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="اختر لغة الترجمة"
-        android:layout_marginTop="10dp"/>
+        android:layout_centerHorizontal="true"
+        android:text="اختر اللغة (100 لغة)"/>
 
-    <Button
-        android:id="@+id/btnTranslate"
+    <RelativeLayout
+        android:id="@+id/inputContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تـرجم"
-        android:backgroundTint="#007ACC"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="200dp"
+        android:layout_below="@id/btnLanguageSelector"
+        android:background="#1AFFFFFF"
+        android:layout_marginTop="10dp">
+        
+        <EditText
+            android:id="@+id/etInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
+            android:background="@android:color/transparent"/>
 
-    <TextView
-        android:id="@+id/tvOutput"
+        <ImageButton
+            android:id="@+id/btnMic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/outputContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="#FFD700"
-        android:textSize="18sp"
-        android:text="النتيجة ستظهر هنا..."/>
+        android:layout_height="200dp"
+        android:layout_below="@id/inputContainer"
+        android:background="#1AFFFFFF"
+        android:layout_marginTop="20dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvOutput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#FFD700"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:padding="5dp">
+            <ImageButton android:id="@+id/btnCopy" android:layout_width="30dp" android:layout_height="30dp" android:src="@android:drawable/ic_menu_edit" android:background="@android:color/transparent"/>
+            <ImageButton android:id="@+id/btnShare" android:layout_width="30dp" android:layout_height="30dp" android:src="@android:drawable/ic_menu_share" android:background="@android:color/transparent" android:layout_marginHorizontal="10dp"/>
+            <ImageButton android:id="@+id/btnSpeaker" android:layout_width="30dp" android:layout_height="30dp" android:src="@android:drawable/ic_lock_silent_mode_off" android:background="@android:color/transparent"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
