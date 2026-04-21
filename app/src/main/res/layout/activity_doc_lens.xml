@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:gravity="center"
+    android:padding="20dp">
+
+    <Button
+        android:id="@+id/btn_lens_feature"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="العدسة الذكية"
+        android:backgroundTint="#FFD700"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/btn_docs_feature"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="ترجمة المستندات"
+        android:backgroundTint="#1A1A1A"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"/>
+
+</LinearLayout>

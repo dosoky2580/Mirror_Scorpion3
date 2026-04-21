@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             // سنضيف الكود عند بدء الكارت الثاني
         }
 
-        binding.btnDocLens.setOnClickListener {
+        binding.btnDocLens.setOnClickListener { startActivity(Intent(this, DocLensActivity::class.java))
             // سنضيف الكود عند بدء الكارت الثالث
         }
     }

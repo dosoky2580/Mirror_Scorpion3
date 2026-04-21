@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <LinearLayout
+        android:id="@+id/header_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <EditText
+            android:id="@+id/et_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="أدخل رابط المستند هنا..."
+            android:textColor="#FFFFFF"
+            android:background="#1A1A1A"
+            android:padding="12dp"/>
+        <Button
+            android:id="@+id/btn_fetch_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بحث"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_browse"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_input"
+        android:layout_centerHorizontal="true"
+        android:text="فتح من المستعرض"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_start_translate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:text="تـرجـمـة"
+        android:visibility="gone"
+        android:backgroundTint="#FFD700"
+        android:textColor="#000000"/>
+
+    </RelativeLayout>
