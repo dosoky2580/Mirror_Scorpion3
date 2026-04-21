@@ -1,36 +1,37 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.tetocollctionway.mirror">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:label="Mirror"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        android:icon="@mipmap/ic_launcher"
+        android:label="Mirror Scorpion"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MirrorScorpion">
         
-        <activity
-            android:name="org.tetocollctionway.mirror.MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="org.tetocollctionway.mirror.TextTranslatorActivity" />
-        <activity android:name="org.tetocollctionway.mirror.DocLensActivity" />
-        <activity android:name="org.tetocollctionway.mirror.DialogTranslatorActivity" />
-        <activity android:name="org.tetocollctionway.mirror.LensActivity" />
-        <activity android:name="org.tetocollctionway.mirror.DocsEngineActivity" />
-        <activity android:name="org.tetocollctionway.mirror.StoriesInspirationActivity" />
-        <activity android:name="org.tetocollctionway.mirror.HadithViewerActivity" />
-        <activity android:name="org.tetocollctionway.mirror.GamesActivity" />
-        <activity android:name="org.tetocollctionway.mirror.SettingsActivity" />
         
-        <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="langid,translate,ocr" />
+        <activity android:name=".TextTranslatorActivity" />
+        <activity android:name=".DocLensActivity" />
+        <activity android:name=".DialogTranslatorActivity" />
+        <activity android:name=".LensActivity" />
+        <activity android:name=".DocsEngineActivity" />
+        <activity android:name=".StoriesInspirationActivity" />
+        <activity android:name=".HadithViewerActivity" />
+        <activity android:name=".GamesActivity" />
+        <activity android:name=".SettingsActivity" />
+
     </application>
 </manifest>
