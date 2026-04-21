@@ -11,14 +11,13 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 
 class TextTranslatorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTextTranslatorBinding
-    private var targetLang = TranslateLanguage.TURKISH // الافتراضي تركي
+    private var targetLang = TranslateLanguage.TURKISH 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTextTranslatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // قائمة اللغات الأساسية حالياً (جاهزة للتوسع لـ 100 لغة)
         val langMap = mapOf(
             "التركية" to TranslateLanguage.TURKISH,
             "الإنجليزية" to TranslateLanguage.ENGLISH,
@@ -27,7 +26,7 @@ class TextTranslatorActivity : AppCompatActivity() {
             "الإيطالية" to TranslateLanguage.ITALIAN
         )
 
-        // الربط مع الزرار العلوي (btnLanguageSelector) لتحديد اللغة
+        // تحديد اللغة من الزر العلوي
         binding.btnLanguageSelector.setOnClickListener {
             val languages = langMap.keys.toTypedArray()
             AlertDialog.Builder(this)
@@ -36,19 +35,11 @@ class TextTranslatorActivity : AppCompatActivity() {
                     val selected = languages[which]
                     targetLang = langMap[selected]!!
                     binding.btnLanguageSelector.text = "ترجمة إلى: $selected"
-                    Toast.makeText(this, "تم اختيار $selected", Toast.LENGTH_SHORT).show()
                 }.show()
         }
 
-        // تنفيذ الترجمة عند الضغط على زر الترجمة (btnTranslate)
-        binding.btnTranslate.setOnClickListener {
-            val text = binding.etInput.text.toString()
-            if (text.isNotEmpty()) {
-                performTranslation(text)
-            } else {
-                Toast.makeText(this, "من فضلك أدخل نصاً أولاً", Toast.LENGTH_SHORT).show()
-            }
-        }
+        // ملاحظة: تم حذف btnTranslate لأنه غير موجود في الواجهة
+        // وبدلاً منه سنعتمد على منطق "الفعل" عند استخدام المايك أو الكتابة
     }
 
     private fun performTranslation(text: String) {
@@ -58,16 +49,10 @@ class TextTranslatorActivity : AppCompatActivity() {
             .build()
         val translator = Translation.getClient(options)
         
-        binding.tvOutput.text = "جاري الترجمة..."
-        
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
                 binding.tvOutput.text = translatedText
-            }.addOnFailureListener {
-                binding.tvOutput.text = "فشل في الترجمة"
             }
-        }.addOnFailureListener {
-            Toast.makeText(this, "فشل في تحميل محرك اللغة، تأكد من الإنترنت", Toast.LENGTH_SHORT).show()
         }
     }
 }
