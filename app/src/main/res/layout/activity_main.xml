@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/wadi_rum_bg" 
-        android:scaleType="centerCrop"
-        android:alpha="0.6"/>
+        android:background="#121212"/>
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
-        <ImageView android:id="@+id/img_shield" android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_shield_status" android:layout_centerVertical="true"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MAIRROR ULTI..." android:textColor="#FFFFFF" android:textSize="18sp" android:layout_toRightOf="@id/img_shield" android:layout_marginLeft="10dp" android:layout_centerVertical="true"/>
-        <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_settings_gear" android:layout_alignParentRight="true" android:layout_centerVertical="true"/>
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:text="MIRROR SCORPION" 
+            android:textColor="#FFFFFF" 
+            android:textSize="18sp" 
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <GridLayout
@@ -29,45 +33,55 @@
         android:padding="10dp"
         android:layout_centerInParent="true">
 
-        <androidx.cardview.widget.CardView android:id="@+id/card_text_translator" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1A007ACC" app:cardCornerRadius="15dp" app:cardElevation="0dp">
+        <androidx.cardview.widget.CardView 
+            android:id="@+id/card_text_translator" 
+            android:layout_width="0dp" 
+            android:layout_height="180dp" 
+            android:layout_columnWeight="1" 
+            android:layout_margin="8dp" 
+            app:cardBackgroundColor="#2C2C2C" 
+            app:cardCornerRadius="15dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_lang_chars" android:tint="#007ACC"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الترجمة الفورية" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الترجمة الفورية" android:textColor="#007ACC" android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView android:id="@+id/card_lens" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1AEE9C12" app:cardCornerRadius="15dp" app:cardElevation="0dp">
+        <androidx.cardview.widget.CardView 
+            android:id="@+id/card_lens" 
+            android:layout_width="0dp" 
+            android:layout_height="180dp" 
+            android:layout_columnWeight="1" 
+            android:layout_margin="8dp" 
+            app:cardBackgroundColor="#2C2C2C" 
+            app:cardCornerRadius="15dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_camera_ai" android:tint="#EE9C12"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(AI) عدسة ميرور" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="عدسة ميرور" android:textColor="#EE9C12" android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView android:id="@+id/card_docs" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1A27AE60" app:cardCornerRadius="15dp" app:cardElevation="0dp">
+        <androidx.cardview.widget.CardView 
+            android:id="@+id/card_docs" 
+            android:layout_width="0dp" 
+            android:layout_height="180dp" 
+            android:layout_columnWeight="1" 
+            android:layout_margin="8dp" 
+            app:cardBackgroundColor="#2C2C2C" 
+            app:cardCornerRadius="15dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_book_docs" android:tint="#27AE60"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الكتب والمستندات" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="الكتب والمستندات" android:textColor="#27AE60" android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView android:id="@+id/card_games" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1AE74C3C" app:cardCornerRadius="15dp" app:cardElevation="0dp">
+        <androidx.cardview.widget.CardView 
+            android:id="@+id/card_games" 
+            android:layout_width="0dp" 
+            android:layout_height="180dp" 
+            android:layout_columnWeight="1" 
+            android:layout_margin="8dp" 
+            app:cardBackgroundColor="#2C2C2C" 
+            app:cardCornerRadius="15dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_game_controller" android:tint="#E74C3C"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ساحة الألعاب" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView android:id="@+id/card_stories" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1A8E44AD" app:cardCornerRadius="15dp" app:cardElevation="0dp">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_story_book" android:tint="#8E44AD"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="قصص وإلهام" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView android:id="@+id/card_adham" android:layout_width="0dp" android:layout_height="180dp" android:layout_columnWeight="1" android:layout_margin="8dp" app:cardBackgroundColor="#1A16A085" app:cardCornerRadius="15dp" app:cardElevation="0dp">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_robot_ai" android:tint="#16A085"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="مساعد أدهم" android:textColor="#FFFFFF" android:textSize="16sp" android:layout_marginTop="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ساحة الألعاب" android:textColor="#E74C3C" android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
