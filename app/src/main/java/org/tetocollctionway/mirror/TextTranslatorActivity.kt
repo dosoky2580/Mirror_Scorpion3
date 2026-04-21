@@ -1,6 +1,7 @@
 package org.tetocollctionway.mirror
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,7 @@ class TextTranslatorActivity : AppCompatActivity() {
         binding = ActivityTextTranslatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // قائمة اللغات الأساسية (جاهزة للتوسع لـ 100 لغة)
+        // قائمة اللغات (الـ 4 لغات الأساسية حالياً وقابلة للزيادة لـ 100)
         val langMap = mapOf(
             "التركية" to TranslateLanguage.TURKISH,
             "الإنجليزية" to TranslateLanguage.ENGLISH,
@@ -27,20 +28,18 @@ class TextTranslatorActivity : AppCompatActivity() {
             "الإيطالية" to TranslateLanguage.ITALIAN
         )
 
-        // الربط مع الزرار في منتصف الشاشة العلوي
-        binding.btnLanguageSelector.setOnClickListener {
+        binding.btnSelectLanguage.setOnClickListener {
             val languages = langMap.keys.toTypedArray()
             AlertDialog.Builder(this)
                 .setTitle("اختر لغة الترجمة")
                 .setItems(languages) { _, which ->
                     val selected = languages[which]
                     targetLang = langMap[selected]!!
-                    binding.btnLanguageSelector.text = "ترجمة إلى: $selected"
+                    binding.btnSelectLanguage.text = "ترجمة إلى: $selected"
                     Toast.makeText(this, "تم اختيار $selected", Toast.LENGTH_SHORT).show()
                 }.show()
         }
 
-        // تنفيذ الترجمة (الفعل البرمجي)
         binding.btnTranslate.setOnClickListener {
             val text = binding.etInput.text.toString()
             if (text.isNotEmpty()) {
@@ -57,8 +56,6 @@ class TextTranslatorActivity : AppCompatActivity() {
             .setTargetLanguage(targetLang)
             .build()
         val translator = Translation.getClient(options)
-        
-        binding.tvOutput.text = "جاري الترجمة..."
         
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
