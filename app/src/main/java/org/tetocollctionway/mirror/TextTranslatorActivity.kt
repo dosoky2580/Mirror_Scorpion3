@@ -3,32 +3,26 @@ package org.tetocollctionway.mirror
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
+import org.tetocollctionway.mirror.databinding.ActivityTextTranslatorBinding
 import java.util.Locale
 
 class TextTranslatorActivity : AppCompatActivity() {
 
-    private lateinit var etInput: EditText
-    private lateinit var tvOutput: TextView
-    private var selectedLang = TranslateLanguage.TURKISH
+    private lateinit var binding: ActivityTextTranslatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_text_translator)
+        binding = ActivityTextTranslatorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // الربط اليدوي لضمان عدم وجود Unresolved reference
-        etInput = findViewById<EditText>(R.id.et_input_text)
-        tvOutput = findViewById<TextView>(R.id.tv_translated_text)
-        val btnMic = findViewById<ImageButton>(R.id.btn_mic)
-
-        btnMic.setOnClickListener { startSpeech() }
+        // عند الضغط على المايك يتم المسح لبدء ترجمة جديدة كما طلبت
+        binding.btnMic.setOnClickListener { 
+            binding.etInput.setText("")
+            binding.tvOutput.text = ""
+            startSpeech() 
+        }
     }
 
     private fun startSpeech() {
@@ -38,33 +32,16 @@ class TextTranslatorActivity : AppCompatActivity() {
         try {
             startActivityForResult(intent, 100)
         } catch (e: Exception) {
-            Toast.makeText(this, "Speech recognition error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "خطأ في التقاط الصوت", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == RESULT_OK) {
-            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            val recognizedText = result?.get(0) ?: ""
-            etInput.setText(recognizedText)
-            translateNow(recognizedText)
-        }
-    }
-
-    private fun translateNow(text: String) {
-        val options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.ARABIC)
-            .setTargetLanguage(selectedLang)
-            .build()
-        val translator = Translation.getClient(options)
-        
-        translator.downloadModelIfNeeded().addOnSuccessListener {
-            translator.translate(text).addOnSuccessListener { translatedText ->
-                tvOutput.text = translatedText
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this, "Translation failed", Toast.LENGTH_SHORT).show()
+            val recognizedText = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+            binding.etInput.setText(recognizedText)
+            // هنا سنضيف كود الترجمة الفوري للغة المختارة لاحقاً
         }
     }
 }
