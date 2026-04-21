@@ -26,6 +26,7 @@
         <activity android:name="org.tetocollctionway.mirror.DocsEngineActivity" />
         <activity android:name="org.tetocollctionway.mirror.StoriesInspirationActivity" />
         <activity android:name="org.tetocollctionway.mirror.HadithViewerActivity" />
+        <activity android:name="org.tetocollctionway.mirror.GamesActivity" />
         
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
