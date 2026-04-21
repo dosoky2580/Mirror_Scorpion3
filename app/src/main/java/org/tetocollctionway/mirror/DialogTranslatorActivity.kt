@@ -24,7 +24,8 @@ class DialogTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListene
         setContentView(binding.root)
         tts = TextToSpeech(this, this)
 
-        binding.btnMain_mic.setOnClickListener {
+        // التصحيح هنا: استخدام btnMainMic اللي اتولد من btn_main_mic
+        binding.btnMainMic.setOnClickListener {
             binding.etUpperDialog.setText("")
             binding.tvLowerDialog.text = ""
             startSpeech()
@@ -38,12 +39,24 @@ class DialogTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListene
             binding.btnLangRight.text = binding.btnLangLeft.text
             binding.btnLangLeft.text = tempText
         }
+
+        binding.btnDialogSpeaker.setOnClickListener {
+            val text = binding.tvLowerDialog.text.toString()
+            if (text.isNotEmpty()) {
+                tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+            }
+        }
     }
 
     private fun startSpeech() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, if(rightLang == TranslateLanguage.ARABIC) "ar-SA" else "tr-TR")
-        startActivityForResult(intent, 200)
+        try {
+            startActivityForResult(intent, 200)
+        } catch (e: Exception) {
+            Toast.makeText(this, "خطأ في الاستماع", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,15 +69,31 @@ class DialogTranslatorActivity : AppCompatActivity(), TextToSpeech.OnInitListene
     }
 
     private fun translateDialog(text: String) {
-        val options = TranslatorOptions.Builder().setSourceLanguage(rightLang).setTargetLanguage(leftLang).build()
+        val options = TranslatorOptions.Builder()
+            .setSourceLanguage(rightLang)
+            .setTargetLanguage(leftLang)
+            .build()
         val translator = Translation.getClient(options)
+        
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { 
                 binding.tvLowerDialog.text = it 
                 tts?.speak(it, TextToSpeech.QUEUE_FLUSH, null, "")
             }
+        }.addOnFailureListener {
+            Toast.makeText(this, "فشل في تحميل اللغات", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onInit(status: Int) {}
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            tts?.language = Locale("tr")
+        }
+    }
+
+    override fun onDestroy() {
+        tts?.stop()
+        tts?.shutdown()
+        super.onDestroy()
+    }
 }
