@@ -11,7 +11,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 
 class TextTranslatorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTextTranslatorBinding
-    private var targetLang = TranslateLanguage.TURKISH 
+    private var targetLangCode: String = TranslateLanguage.TURKISH 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,7 @@ class TextTranslatorActivity : AppCompatActivity() {
             "الإنجليزية" to TranslateLanguage.ENGLISH,
             "البنغالية" to TranslateLanguage.BENGALI,
             "الهندية" to TranslateLanguage.HINDI,
-            "السيرلانكية" to "si", // الكود المختصر الصحيح للسينهالية
-            "الفرنسية" to TranslateLanguage.FRENCH
+            "السيرلانكية" to "si"
         )
 
         binding.btnSelectLanguage.setOnClickListener {
@@ -33,8 +32,7 @@ class TextTranslatorActivity : AppCompatActivity() {
                 .setTitle("اختر لغة الترجمة")
                 .setItems(languages) { _, which ->
                     val selected = languages[which]
-                    val langValue = langMap[selected]!!
-                    targetLang = langValue.toString()
+                    targetLangCode = langMap[selected]!!
                     binding.btnSelectLanguage.text = "ترجمة إلى: $selected"
                 }.show()
         }
@@ -43,6 +41,8 @@ class TextTranslatorActivity : AppCompatActivity() {
             val text = binding.etInput.text.toString()
             if (text.isNotEmpty()) {
                 performTranslation(text)
+            } else {
+                Toast.makeText(this, "أدخل نصاً أولاً", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,16 +50,18 @@ class TextTranslatorActivity : AppCompatActivity() {
     private fun performTranslation(text: String) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ARABIC)
-            .setTargetLanguage(targetLang)
+            .setTargetLanguage(targetLangCode)
             .build()
         val translator = Translation.getClient(options)
+        
+        binding.tvOutput.text = "جاري الترجمة..."
         
         translator.downloadModelIfNeeded().addOnSuccessListener {
             translator.translate(text).addOnSuccessListener { translatedText ->
                 binding.tvOutput.text = translatedText
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this, "خطأ في المحرك أو الإنترنت", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener { binding.tvOutput.text = "فشلت الترجمة" }
+        }.addOnFailureListener { 
+            Toast.makeText(this, "تأكد من الاتصال بالإنترنت لتحميل اللغة", Toast.LENGTH_SHORT).show()
         }
     }
 }
